@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root{
+  --white: #FFFFF1;
+  font-family: 'Open Sans', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p, h1, h2 {
+  margin: 0;
+}
+
+button, svg {
+  font-family: 'Open Sans';
+  transition: all 0.15s ease-in-out;
+}
+
+button:hover, svg:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}

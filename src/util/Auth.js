@@ -8,7 +8,7 @@ export class PrivateRoute extends Route {
     if (isAuthenticated) {
       return super.render();
     } else {
-      return <Navigate to='/login' />;
+      return <Navigate to='/user_access' />;
     }
   }
 };

@@ -17,8 +17,10 @@ body {
   --white: #FFFFFF;
   --grey: #EDEDED;
   --blue: #12AFF0;
+  --mid-blue: #0E86B8;
   --dark-blue: #274381;
   --dark-grey: #504D4E;
+  --red: #ff3333;
 
   font-family: 'Open Sans', sans-serif;
 }
@@ -37,4 +39,21 @@ button {
   outline: none;
   padding: 0;
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mid-blue);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-blue);
 }

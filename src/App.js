@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
+import UserAccess from './pages/UserAccess';
 import { PrivateRoute } from './util/Auth';
 
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/user_access' element={<UserAccess />} />
       </Routes>
     </BrowserRouter>
   );

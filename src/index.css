@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
 
 html {
   font-size: 10px;
@@ -13,24 +13,26 @@ body {
   font-size: 1.6rem;
 }
 
-:root{
-  --white: #FFFFFF;
-  --grey: #EDEDED;
-  --blue: #12AFF0;
-  --mid-blue: #0E86B8;
+:root {
+  --white: #ffffff;
+  --grey: #ededed;
+  --blue: #12aff0;
+  --mid-blue: #0e86b8;
   --dark-blue: #274381;
-  --dark-grey: #504D4E;
+  --dark-grey: #504d4e;
   --red: #ff3333;
 
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-p, h1, h2 {
+p,
+h1,
+h2 {
   margin: 0;
 }
 
@@ -56,4 +58,16 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--dark-blue);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

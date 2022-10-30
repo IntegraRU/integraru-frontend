@@ -1,7 +1,6 @@
 import styles from "./UserAccess.module.css";
 import React, { useReducer } from "react";
 import {LoginForm, RegisterForm} from "../../components";
-import { tab } from "@testing-library/user-event/dist/tab";
 
 const tabReducer = (state, action) => {
     switch (action) {
@@ -15,7 +14,7 @@ const tabReducer = (state, action) => {
 };
 
 export default function UserAccess() {
-    const [shownTab, dispatch] = useReducer(tabReducer, "LOGIN");
+    const [shownTab, dispatch] = useReducer(tabReducer, "REGISTER");
 
     return (
         <div className={styles.login}>
@@ -34,7 +33,7 @@ export default function UserAccess() {
                     Registrar
                 </button>
             </div>
-            {tab === 'LOGIN' ?
+            {shownTab === 'LOGIN' ?
                 <LoginForm changeForm={()=>dispatch('SET_REGISTER_TAB')} /> :
                 <RegisterForm />
             }

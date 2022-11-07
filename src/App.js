@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
-import UserAccess from "./pages/UserAccess";
-import { PrivateRoute } from "./util/Auth";
+import UserAccess from './pages/UserAccess';
+import { AdminRoute, UserRoute } from './util/Auth';
+
 
 function App() {
   return (

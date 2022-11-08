@@ -1,14 +1,23 @@
-import {Route, Navigate} from 'react-router-dom';
+import { Route, Navigate, Outlet } from 'react-router-dom';
 
-export class PrivateRoute extends Route {
-  render() {
-    // TODO: Auth function
-    const isAuthenticated = true;
-    
-    if (isAuthenticated) {
-      return super.render();
-    } else {
-      return <Navigate to='/user_access' />;
-    }
+// TODO: Auth function
+const isAuthenticated = true;
+
+const AdminRoute = () => {
+  const isAdmin = true;
+  if (!isAuthenticated || !isAdmin) {
+    return <Navigate to="/user_access" replace />;
   }
+  return <Outlet />;
 };
+
+const UserRoute = () => {
+  const isCommon = true;
+  if (!isAuthenticated || isCommon) {
+    return <Navigate to="/user_access" replace />;
+  }
+
+  return <Outlet />;
+};
+
+export { AdminRoute, UserRoute };

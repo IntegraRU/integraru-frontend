@@ -13,7 +13,7 @@ const AdminRoute = () => {
 
 const UserRoute = () => {
   const isCommon = true;
-  if (!isAuthenticated || isCommon) {
+  if (!isAuthenticated || !isCommon) {
     return <Navigate to="/user_access" replace />;
   }
 

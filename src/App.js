@@ -1,7 +1,8 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserAccess from './pages/UserAccess';
-import AddMenu from './pages/AddMenu';
+import ChangeMenu from './pages/ChangeMenu';
+import ViewMenus from './pages/ViewMenus';
 import { AdminRoute, UserRoute } from './util/Auth';
 
 
@@ -9,11 +10,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/user_access' element={<UserAccess />} />
-        <Route path='/' element={<UserAccess />}>
+        <Route path='/acesso_usuario' element={<UserAccess />} />
+        <Route path='/' element={<UserRoute />}>
         </Route>
         <Route path='/admin' element={<AdminRoute />}>
-          <Route path='cardapio' element={<AddMenu />} />
+          <Route path='cardapio' element={<ViewMenus />} />
+          <Route path='cardapio/novo' element={<ChangeMenu />} />
+          <Route path='cardapio/editar' element={<ChangeMenu />} />
         </Route>
       </Routes>
     </BrowserRouter>

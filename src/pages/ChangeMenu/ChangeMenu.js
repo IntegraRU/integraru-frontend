@@ -1,10 +1,10 @@
-import styles from "./AddMenu.module.css";
+import styles from "./ChangeMenu.module.css";
 import React, { useCallback } from "react";
 import {ReturnButton} from "../../components";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import {AiOutlineCloudUpload, AiOutlineClose, AiOutlineCheck} from 'react-icons/ai';
 
@@ -14,24 +14,25 @@ const registerSchema = yup.object({
     ingredients: yup.string().required('Ingredientes são obrigatórios')
 }).required();
 
-export default function AddMenu() {
+export default function ChangeMenu() {
     const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
         resolver: yupResolver(registerSchema)
     });
     const navigate = useNavigate();
+    const { state: previousMenu } = useLocation();
 
     const submitForm = useCallback((data) => console.log(data), []);
 
     return (
         <div className={styles.menu}>
             <ReturnButton />
-            <h1 className={styles.menu__title}>Adicionar cardápio</h1>
+            <h1 className={styles.menu__title}>{previousMenu ? 'Editar cardápio' : 'Adicionar cardápio'}</h1>
             <form className={styles.menu__form} onSubmit={handleSubmit(submitForm)}>
                 <div className={styles.menu__form__head}>
                     <Controller
                         name="date"
                         control={control}
-                        defaultValue={new Date()}
+                        defaultValue={previousMenu ? previousMenu.date : new Date()}
                         render={({ field: { onChange, value } }) => (
                             <DatePicker
                                 selected={value}
@@ -42,7 +43,7 @@ export default function AddMenu() {
                             />
                         )}
                     />
-                    <select {...register('meal')} >
+                    <select defaultValue={previousMenu && previousMenu.meal} {...register('meal')} >
                         <option>Almoço</option>
                         <option>Jantar</option>
                     </select>
@@ -54,18 +55,18 @@ export default function AddMenu() {
                     <p className={styles.menu__form__error}>{errors.file?.message}</p>
                 </div>
                 <div className={styles.menu__form__field}>
-                    <label for="title">Nome</label>
-                    <input placeholder="ex: Feijoada com Arroz" {...register('title')} />
+                    <label>Nome</label>
+                    <input defaultValue={previousMenu && previousMenu.title} placeholder="ex: Feijoada com Arroz" {...register('title')} />
                     <p className={styles.menu__form__error}>{errors.title?.message}</p>
                 </div>
                 <div className={styles.menu__form__field}>
-                    <label for="ingredients">Ingredientes <span>(Separados por vírgula)</span></label>
-                    <textarea placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
+                    <label>Ingredientes <span>(Separados por vírgula)</span></label>
+                    <textarea defaultValue={previousMenu && previousMenu.ingredients} placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
                     <p className={styles.menu__form__error}>{errors.ingredients?.message}</p>
                 </div>
                 <div className={styles.menu__form__field}>
-                    <label for="type">Tipo</label>
-                    <select className={styles.menu__form__field__select} {...register('type')}>
+                    <label>Tipo</label>
+                    <select defaultValue={previousMenu && previousMenu.type} className={styles.menu__form__field__select} {...register('type')}>
                         <option>Comum</option>
                         <option>Vegetariano</option>
                         <option>Vegano</option>

@@ -1,11 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
+import { registerLocale } from  "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ptBR from 'date-fns/locale/pt-BR';
 import App from './App';
 
-ReactDOM.render(
+registerLocale('pt-BR', ptBR);
+const element = document.getElementById('root');
+const root = createRoot(element);
+
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

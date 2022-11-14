@@ -1,60 +1,45 @@
-import { React } from "react";
-
-import { BiUser, BiHistory, BiStar } from "react-icons/bi";
-import { HiOutlineBanknotes } from "react-icons/hi2";
+import { BiHome } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
 
+import Home from "../pages/Home";
 import ViewMenus from "../pages/ViewMenus";
+import ChangeMenu from "../pages/ChangeMenu";
 import { UserRoute, AdminRoute } from "./Auth";
 
 export const serviceRoutes = [
   {
-    name: "Visualizar Perfil",
-    route: "perfil",
-    icon: BiUser,
-    component: null,
+    name: "Página inicial",
+    route: "inicio",
+    icon: BiHome,
+    component: Home,
     type: UserRoute,
   },
   {
-    name: "Cardápio do Dia",
-    route: "menu",
-    icon: GiKnifeFork,
-    component: null,
-    type: UserRoute,
-  },
-  {
-    name: "Histórico de Reservas",
-    route: "historico",
-    icon: BiHistory,
-    component: null,
-    type: UserRoute,
-  },
-  {
-    name: "Acessar Carteira",
-    route: "carteira",
-    icon: HiOutlineBanknotes,
-    component: null,
-    type: UserRoute,
+    name: "Página inicial",
+    route: "inicio",
+    icon: BiHome,
+    component: Home,
+    type: AdminRoute,
   },
   {
     name: "Cadastrar Cardápio",
+    route: "cardapio/novo",
+    icon: GiKnifeFork,
+    component: ChangeMenu,
+    type: AdminRoute,
+  },
+  {
+    name: "Editar Cardápio",
+    route: "cardapio/editar",
+    icon: GiKnifeFork,
+    component: ChangeMenu,
+    type: AdminRoute,
+  },
+  {
+    name: "Visualizar Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
-    component: <ViewMenus />,
+    component: ViewMenus,
     type: AdminRoute,
-  },
-  {
-    name: "Adicionar Crédito",
-    route: "creditos",
-    icon: HiOutlineBanknotes,
-    component: null,
-    type: AdminRoute,
-  },
-  {
-    name: "Histórico de Avaliações",
-    route: "avaliacoes",
-    icon: BiStar,
-    component: null,
-    type: AdminRoute,
-  },
+  }
 ];

@@ -20,4 +20,8 @@ const UserRoute = () => {
   return <Outlet />;
 };
 
-export { AdminRoute, UserRoute };
+const getUserType = () => {
+  return AdminRoute;
+}
+
+export { AdminRoute, UserRoute, getUserType };

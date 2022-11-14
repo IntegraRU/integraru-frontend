@@ -1,0 +1,58 @@
+.card {
+    background-color: var(--mid-grey);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: var(--dark-blue);
+    padding: 1rem 1rem 2rem;
+    gap: 1rem;
+}
+
+.card__info {
+    display: flex;
+    gap: 1rem;
+}
+
+.card__image {
+    max-width: 50%;
+}
+
+.card__mainInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.card__mainInfo > p {
+    font-size: 1.2rem;
+    padding: 0;
+}
+
+.card__mainInfo > h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.card__ingredients {
+    font-size: 1rem;
+    list-style: none;
+}
+
+.card__ingredients > li::before {
+    content: "\2022";
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.card__editButton {
+    align-self: flex-end;
+    padding: 0.8rem 1.6rem;
+    border-radius: 16px;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 1.2rem;
+}

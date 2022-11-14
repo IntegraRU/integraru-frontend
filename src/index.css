@@ -21,6 +21,7 @@ body {
   --blue: #12aff0;
   --mid-blue: #0e86b8;
   --dark-blue: #274381;
+  --mid-grey: #dedede;
   --dark-grey: #504d4e;
   --red: #ff3333;
 
@@ -74,13 +75,12 @@ input[type="number"] {
   appearance: textfield;
 }
 
-
 select {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
 }
 
-select::-ms-expand{
+select::-ms-expand {
   display: none;
 }

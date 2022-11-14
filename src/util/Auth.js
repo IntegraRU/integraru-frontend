@@ -13,11 +13,15 @@ const AdminRoute = () => {
 
 const UserRoute = () => {
   const isCommon = true;
-  if (!isAuthenticated || isCommon) {
+  if (!isAuthenticated || !isCommon) {
     return <Navigate to="/acesso_usuario" replace />;
   }
 
   return <Outlet />;
 };
 
-export { AdminRoute, UserRoute };
+const getUserType = () => {
+  return AdminRoute;
+}
+
+export { AdminRoute, UserRoute, getUserType };

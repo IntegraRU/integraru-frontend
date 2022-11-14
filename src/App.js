@@ -1,22 +1,27 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UserAccess from "./pages/UserAccess";
+import { AdminRoute, UserRoute } from "./util/Auth";
+import { serviceRoutes } from "./util/Routes";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserAccess from './pages/UserAccess';
-import ChangeMenu from './pages/ChangeMenu';
-import ViewMenus from './pages/ViewMenus';
-import { AdminRoute, UserRoute } from './util/Auth';
-
+const buildRoutes = (type) => {
+  return serviceRoutes.map((route) => {
+    return route.type === type ? (
+      <Route key={route.name} path={route.route} element={React.createElement(route.component, {})} exact />
+    ) : null;
+  });
+};
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/acesso_usuario' element={<UserAccess />} />
-        <Route path='/' element={<UserRoute />}>
+        <Route path="/acesso_usuario" element={<UserAccess />} />
+        <Route path="/" element={<UserRoute />}>
+          {buildRoutes(UserRoute)}
         </Route>
-        <Route path='/admin' element={<AdminRoute />}>
-          <Route path='cardapio' element={<ViewMenus />} />
-          <Route path='cardapio/novo' element={<ChangeMenu />} />
-          <Route path='cardapio/editar' element={<ChangeMenu />} />
+        <Route path="/admin" element={<AdminRoute />}>
+          {buildRoutes(AdminRoute)}
         </Route>
       </Routes>
     </BrowserRouter>

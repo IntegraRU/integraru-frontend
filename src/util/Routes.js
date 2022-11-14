@@ -1,9 +1,10 @@
-import { BiHome } from "react-icons/bi";
+import { BiHome, BiUser } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
 
 import Home from "../pages/Home";
 import ViewMenus from "../pages/ViewMenus";
 import ChangeMenu from "../pages/ChangeMenu";
+import Profile from "../pages/Profile";
 import { UserRoute, AdminRoute } from "./Auth";
 
 export const serviceRoutes = [
@@ -12,6 +13,13 @@ export const serviceRoutes = [
     route: "inicio",
     icon: BiHome,
     component: Home,
+    type: UserRoute,
+  },
+  {
+    name: "Perfil",
+    route: "perfil",
+    icon: BiUser,
+    component: Profile,
     type: UserRoute,
   },
   {

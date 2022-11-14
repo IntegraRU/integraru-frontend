@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 
-import { HiMenu } from "react-icons/hi";
 import ServiceCard from "../../components/ServiceCard";
-import { adminServiceOptions, userServiceOptions } from "../../util/Options";
+import { serviceRoutes } from "../../util/Routes";
 
 import styles from "./Home.module.css";
 
-export default function Home() {
+export default function Home({type}) {
   // TODO: User integration
   const [userData, setUserData] = useState({
     name: "Fulana",
-    role: "admin",
   });
-
-  const serviceOptions = userData.role === "admin" ? adminServiceOptions : userServiceOptions;
 
   return (
     <div className={styles.home__container}>
@@ -23,16 +19,15 @@ export default function Home() {
       <main>
         <h2>Escolha qualquer uma das opções abaixo</h2>
         <div className={styles.home__navigationContainer}>
-          {serviceOptions.map((option) => {
-            return (
-              <ServiceCard name={option.name} route={option.route}>
+          {serviceRoutes.map((option) => {
+            return option.type === type ? (
+              <ServiceCard name={option.name} route={option.route} key={option.route}>
                 <option.icon size="48px" />
               </ServiceCard>
-            );
+            ) : null;
           })}
         </div>
       </main>
-      <div id={styles.home__line}></div>
     </div>
   );
 }

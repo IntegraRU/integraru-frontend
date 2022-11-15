@@ -5,6 +5,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styles from "./LoginForm.module.css";
+import {useUser} from "../../contexts/userContext";
+import { FormControlLabel, Typography } from "@mui/material";
 
 const loginSchema = yup.object({
     registration: yup.number().typeError('Campo obrigatório e apenas numérico').integer().required(),
@@ -16,8 +18,15 @@ export default function LoginForm({ changeForm }) {
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema)
     });
+    const { performLogin } = useUser();
 
-    const submitForm = useCallback((data) => console.log(data), []);
+    const submitForm = useCallback((data) => {
+        performLogin({
+            registration: data.registration,
+            password: data.password
+        }, data.stay_connected)
+        .catch(e => alert(e));
+    }, [performLogin]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
@@ -27,33 +36,35 @@ export default function LoginForm({ changeForm }) {
                 pedido!
             </p>
             <div className={styles.form__textField}>
-                <label for="registration">Matrícula</label>
-                <input placeholder="ex: 119210000" {...register('registration')} />
+                <label>Matrícula</label>
+                <input placeholder="ex: 119210000" autoComplete='on' {...register('registration')} />
                 <p className={styles.form__error}>{errors.registration?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="password">Senha</label>
-                <input placeholder="Insira sua senha" type="password" {...register('password')} />
+                <label>Senha</label>
+                <input placeholder="Insira sua senha" type="password" autoComplete='on' {...register('password')} />
                 <p className={styles.form__error}>{errors.password?.message}</p>
             </div>
-            <div className={styles.form__checkField}>
-                <Controller
-                    name="stay_connected"
-                    control={control}
-                    render={({ field }) => <Checkbox
-                        sx={{
-                            color: 'var(--dark-blue)',
-                            '& .MuiSvgIcon-root': { fontSize: "1.9rem" },
-                            '&.Mui-checked': {
+            <FormControlLabel
+                control={
+                    <Controller
+                        name="stay_connected"
+                        id="stay_connected_cb"
+                        control={control}
+                        render={({ field }) => <Checkbox
+                            sx={{
                                 color: 'var(--dark-blue)',
-                            }
-                        }}
-                        {...field}
-                    />}
-                />
-
-                <label for="stay_connected">Continuar conectado?</label>
-            </div>
+                                '& .MuiSvgIcon-root': { fontSize: "1.9rem" },
+                                '&.Mui-checked': {
+                                    color: 'var(--dark-blue)',
+                                }
+                            }}
+                            {...field}
+                        />}
+                    />
+                }
+                label={<Typography className={styles.form__checkField}>Continuar conectado?</Typography>}
+            />
             <p className={styles.form__registerLink}>
                 Ainda não possui conta? <button type="button" onClick={changeForm}>Registre-se!</button>
             </p>

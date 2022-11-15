@@ -3,6 +3,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import {useUser} from "../../contexts/userContext";
 import styles from "./RegisterForm.module.css";
 
 const registerSchema = yup.object({
@@ -23,7 +24,15 @@ export default function RegisterForm() {
         resolver: yupResolver(registerSchema)
     });
 
-    const submitForm = useCallback((data) => console.log(data), []);
+    const { performRegistration } = useUser();
+
+    const submitForm = useCallback((data) => {
+        performRegistration({
+            registration: data.registration,
+            password: data.password
+        }, data.stay_connected)
+        .catch(e => alert(e));
+    }, [performRegistration]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
@@ -33,33 +42,33 @@ export default function RegisterForm() {
                 nosso sistema. É rapidinho!
             </p>
             <div className={styles.form__textField}>
-                <label for="name">Nome</label>
-                <input placeholder="Insira seu nome completo" {...register('name')} />
+                <label>Nome</label>
+                <input placeholder="Insira seu nome completo" autoComplete='on' {...register('name')} />
                 <p className={styles.form__error}>{errors.name?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="email">E-mail</label>
-                <input placeholder="ex: usuario@exemplo.com" {...register('email')} />
+                <label>E-mail</label>
+                <input placeholder="ex: usuario@exemplo.com" autoComplete='on' {...register('email')} />
                 <p className={styles.form__error}>{errors.email?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="registration">Matrícula</label>
-                <input placeholder="ex: 119210000" {...register('registration')} />
+                <label>Matrícula</label>
+                <input placeholder="ex: 119210000" autoComplete='on' {...register('registration')} />
                 <p className={styles.form__error}>{errors.registration?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="phone">Telefone</label>
-                <input placeholder="ex: (83) 99999-9999" type="number" {...register('phone')} />
+                <label>Telefone</label>
+                <input placeholder="ex: (83) 99999-9999" type="number" autoComplete='on' {...register('phone')} />
                 <p className={styles.form__error}>{errors.phone?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="password">Senha</label>
-                <input placeholder="Insira pelo menos 8 caracteres" type="password" {...register('password')} />
+                <label>Senha</label>
+                <input placeholder="Insira pelo menos 8 caracteres" type="password" autoComplete='on' {...register('password')} />
                 <p className={styles.form__error}>{errors.password?.message}</p>
             </div>
             <div className={styles.form__textField}>
-                <label for="password_confirmation">Confirmar senha</label>
-                <input placeholder="Repita a senha" type="password" {...register('password_confirmation')} />
+                <label>Confirmar senha</label>
+                <input placeholder="Repita a senha" type="password" autoComplete='on' {...register('password_confirmation')} />
                 <p className={styles.form__error}>{errors.password_confirmation?.message}</p>
             </div>
             

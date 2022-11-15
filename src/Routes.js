@@ -1,10 +1,9 @@
 import { BiHome } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
 
-import Home from "../pages/Home";
-import ViewMenus from "../pages/ViewMenus";
-import ChangeMenu from "../pages/ChangeMenu";
-import { UserRoute, AdminRoute } from "./Auth";
+import Home from "./pages/Home";
+import ViewMenus from "./pages/ViewMenus";
+import ChangeMenu from "./pages/ChangeMenu";
 
 export const serviceRoutes = [
   {
@@ -12,34 +11,34 @@ export const serviceRoutes = [
     route: "inicio",
     icon: BiHome,
     component: Home,
-    type: UserRoute,
+    type: 'user',
   },
   {
     name: "Página inicial",
     route: "inicio",
     icon: BiHome,
     component: Home,
-    type: AdminRoute,
+    type: 'admin',
   },
   {
     name: "Cadastrar Cardápio",
     route: "cardapio/novo",
     icon: GiKnifeFork,
     component: ChangeMenu,
-    type: AdminRoute,
+    type: 'admin',
   },
   {
     name: "Editar Cardápio",
     route: "cardapio/editar",
     icon: GiKnifeFork,
     component: ChangeMenu,
-    type: AdminRoute,
+    type: 'admin',
   },
   {
     name: "Visualizar Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
     component: ViewMenus,
-    type: AdminRoute,
+    type: 'admin',
   }
 ];

@@ -1,27 +1,12 @@
-import { Route, Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from "react-router-dom";
+import { useUser } from "../contexts/userContext";
 
-// TODO: Auth function
-const isAuthenticated = true;
+export const PrivateRoute = ({ checkAdmin }) => {
+  const { currentUser } = useUser();
 
-const AdminRoute = () => {
-  const isAdmin = true;
-  if (!isAuthenticated || !isAdmin) {
-    return <Navigate to="/acesso_usuario" replace />;
-  }
-  return <Outlet />;
+  return currentUser && (!checkAdmin || currentUser.admin) ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/acesso_usuario" replace />
+  );
 };
-
-const UserRoute = () => {
-  const isCommon = true;
-  if (!isAuthenticated || !isCommon) {
-    return <Navigate to="/acesso_usuario" replace />;
-  }
-
-  return <Outlet />;
-};
-
-const getUserType = () => {
-  return AdminRoute;
-}
-
-export { AdminRoute, UserRoute, getUserType };

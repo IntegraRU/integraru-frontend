@@ -50,7 +50,7 @@ export default function ChangeMenu() {
                 </div>
                 <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>
                     <p className={styles.menu__form__file__title}>Imagem</p>
-                    <label for="meal-photo"><AiOutlineCloudUpload /></label>
+                    <label htmlFor="meal-photo"><AiOutlineCloudUpload /></label>
                     <input type={'file'} accept="image/*" id="meal-photo" {...register('image')} />
                     <p className={styles.menu__form__error}>{errors.file?.message}</p>
                 </div>

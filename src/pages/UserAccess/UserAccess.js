@@ -1,6 +1,8 @@
 import styles from "./UserAccess.module.css";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import {LoginForm, RegisterForm} from "../../components";
+import { useUser } from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 const tabReducer = (state, action) => {
     switch (action) {
@@ -14,7 +16,16 @@ const tabReducer = (state, action) => {
 };
 
 export default function UserAccess() {
-    const [shownTab, dispatch] = useReducer(tabReducer, "REGISTER");
+    const [shownTab, dispatch] = useReducer(tabReducer, "LOGIN");
+    const { currentUser } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(currentUser){
+            if(currentUser.admin) navigate('/admin/inicio');
+            else navigate('/inicio');
+        }
+    }, [currentUser, navigate]);
 
     return (
         <div className={styles.login}>

@@ -1,30 +1,40 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useCallback } from "react";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import UserAccess from "./pages/UserAccess";
-import { AdminRoute, UserRoute } from "./util/Auth";
-import { serviceRoutes } from "./util/Routes";
-
-const buildRoutes = (type) => {
-  return serviceRoutes.map((route) => {
-    return route.type === type ? (
-      <Route key={route.name} path={route.route} element={React.createElement(route.component, {})} exact />
-    ) : null;
-  });
-};
+import { serviceRoutes } from "./Routes";
+import { UserProvider } from "./contexts/userContext";
+import { PrivateRoute } from "./util/Auth";
 
 function App() {
+  const buildRoutes = useCallback((type) => {
+    return serviceRoutes
+      .filter((route) => route.type === type)
+      .map((route) => (
+        <Route
+          key={route.name}
+          path={route.route}
+          element={React.createElement(route.component, {})}
+          exact
+        />
+      ));
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/acesso_usuario" element={<UserAccess />} />
-        <Route path="/" element={<UserRoute />}>
-          {buildRoutes(UserRoute)}
-        </Route>
-        <Route path="/admin" element={<AdminRoute />}>
-          {buildRoutes(AdminRoute)}
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/acesso_usuario" element={<UserAccess />} exact />
+          <Route exact path='/' element={<PrivateRoute />}>
+            {buildRoutes("user")}
+          </Route>
+          <Route exact path='/admin' element={<PrivateRoute checkAdmin />}>
+            {buildRoutes("admin")}
+          </Route>
+          {/* TODO: Decidir o que fazer com rotas incorretas
+        <Route path="*" element={<Navigate to="/acesso_usuario" replace />}/> */}
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

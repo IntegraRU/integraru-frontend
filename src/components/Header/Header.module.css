@@ -1,0 +1,75 @@
+.return {
+  position: absolute;
+  top: 5vh;
+  left: 5vh;
+  color: var(--dark-blue);
+  font-size: 1.6rem;
+  background: none;
+}
+
+/* Position and sizing of burger button */
+.burger__button {
+  position: fixed;
+  width: 2rem;
+  height: 2rem;
+  right: 3rem;
+  top: 3rem;
+}
+
+/* Color/shape of burger icon bars */
+.burger__bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.cross__button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.cross {
+  background: #bdc3c7;
+}
+
+/*
+  Sidebar wrapper styles
+  Note: Beware of modifying this element as it can break the animations __ you should not need to touch it in most cases
+  */
+
+
+/* General sidebar styles */
+.menu {
+  height: 100%;
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.morph__shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.item__list {
+  color: #b8b7ad;
+  padding: 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual item */
+.item {
+  text-decoration: none;
+}
+
+/* Styling of overlay */
+.overlay {
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

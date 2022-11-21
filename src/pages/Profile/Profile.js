@@ -1,6 +1,6 @@
 import styles from "./Profile.module.css";
 import React, { useReducer, useCallback } from "react";
-import { ReturnButton } from "../../components";
+import { Header } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import User from "../../assets/user.png";
@@ -58,7 +58,7 @@ export default function Profile() {
 
   return (
     <div className={styles.profile}>
-      <ReturnButton />
+      <Header />
       <img
         src={User}
         alt={`Foto de ${mockUser.name}`}

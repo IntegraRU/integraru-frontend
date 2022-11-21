@@ -1,10 +1,10 @@
 import styles from "./ChangeMenu.module.css";
 import React, { useCallback } from "react";
-import {ReturnButton} from "../../components";
+import {Header} from "../../components";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import {AiOutlineCloudUpload, AiOutlineClose, AiOutlineCheck} from 'react-icons/ai';
 
@@ -18,14 +18,13 @@ export default function ChangeMenu() {
     const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
         resolver: yupResolver(registerSchema)
     });
-    const navigate = useNavigate();
     const { state: previousMenu } = useLocation();
 
     const submitForm = useCallback((data) => console.log(data), []);
 
     return (
         <div className={styles.menu}>
-            <ReturnButton />
+            <Header />
             <h1 className={styles.menu__title}>{previousMenu ? 'Editar cardápio' : 'Adicionar cardápio'}</h1>
             <form className={styles.menu__form} onSubmit={handleSubmit(submitForm)}>
                 <div className={styles.menu__form__head}>

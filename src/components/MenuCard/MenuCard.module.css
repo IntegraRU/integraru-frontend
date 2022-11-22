@@ -35,6 +35,10 @@
     font-size: 1.5rem;
 }
 
+.card__ingredients__title {
+    font-size: 1.4rem;
+}
+
 .card__ingredients {
     font-size: 1rem;
     list-style: none;

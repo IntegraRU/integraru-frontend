@@ -85,3 +85,10 @@ select {
 select::-ms-expand {
   display: none;
 }
+
+.bm-menu-wrap {
+  position: absolute;
+  top: 0;
+  right: 0 !important;
+  max-width: 65%;
+}

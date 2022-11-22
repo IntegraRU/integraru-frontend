@@ -1,9 +1,7 @@
-import styles from "./ViewMenus.module.css";
+import styles from "./UserMenus.module.css";
 import React, { useReducer } from "react";
 import { MenuCard, Header } from "../../components";
 import DatePicker from "react-datepicker";
-import { useNavigate } from "react-router-dom";
-import { AiOutlinePlus } from 'react-icons/ai';
 import Meal from '../../assets/food.png';
 
 const defaultFilters = {
@@ -62,20 +60,19 @@ const mockMenus = [
     }
 ]
 
-export default function ViewMenus() {
+export default function UserMenus() {
 
     const [currentFilters, dispatch] = useReducer(filterReducer, defaultFilters);
-    const navigate = useNavigate();
 
     return (
-        <div className={styles.view}>
+        <div className={styles.menu}>
             <Header />
-            <h1 className={styles.view__title}>Cardápio</h1>
-            <div className={styles.view__filters}>
+            <h1 className={styles.menu__title}>Cardápio do dia</h1>
+            <div className={styles.menu__filters}>
                 <DatePicker
                     selected={currentFilters.date}
                     onChange={(date)=>dispatch({type: 'SET_MENU_DATE', payload: date})}
-                    className={styles.view__datepicker}
+                    className={styles.menu__datepicker}
                     dateFormat="dd/MM/yyyy"
                     locale='pt-BR'
                 />
@@ -84,13 +81,10 @@ export default function ViewMenus() {
                     <option>Jantar</option>
                 </select>
             </div>
-            <div className={styles.view__menus}>
+            <div className={styles.menu__menus}>
                 {mockMenus.filter(menu => menu.meal === currentFilters.meal && menu.date.toDateString() === currentFilters.date.toDateString())
-                          .map((menu, idx) => <MenuCard cardData={menu} key={idx} type='edit' />)}
+                          .map((menu, idx) => <MenuCard cardData={menu} key={idx} type='checkout' />)}
             </div>
-            <button className={styles.view__addButton} onClick={()=>navigate('/admin/cardapio/novo')}>
-                <AiOutlinePlus />
-            </button>
         </div>
     );
 }

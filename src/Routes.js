@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ViewMenus from "./pages/ViewMenus";
 import ChangeMenu from "./pages/ChangeMenu";
 import Profile from './pages/Profile';
+import UserMenus from "./pages/UserMenus";
 
 export const serviceRoutes = [
   {
@@ -48,5 +49,12 @@ export const serviceRoutes = [
     icon: GiKnifeFork,
     component: ViewMenus,
     type: 'admin',
+  },
+  {
+    name: "Visualizar Cardápios",
+    route: "cardapio",
+    icon: GiKnifeFork,
+    component: UserMenus,
+    type: 'user',
   }
 ];

@@ -9,7 +9,8 @@ import {useUser} from "../../contexts/userContext";
 import { FormControlLabel, Typography } from "@mui/material";
 
 const loginSchema = yup.object({
-    registration: yup.number().typeError('Campo obrigatório e apenas numérico').integer().required(),
+    registration: yup.string().required(),
+    // registration: yup.number().typeError('Campo obrigatório e apenas numérico').integer().required(),
     password: yup.string().required('Senha é obrigatória!'),
     stay_connected: yup.boolean().default(false)
 }).required();
@@ -22,7 +23,7 @@ export default function LoginForm({ changeForm }) {
 
     const submitForm = useCallback((data) => {
         performLogin({
-            registration: data.registration,
+            username: data.registration,
             password: data.password
         }, data.stay_connected)
         .catch(e => alert(e));

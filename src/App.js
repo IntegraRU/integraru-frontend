@@ -30,7 +30,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/acesso_usuario" element={<UserAccess />} exact />
-          <Route exact path="/" element={<PrivateRoute />}>
+          <Route exact path='/' element={<PrivateRoute />}>
+            <Route path="" element={<Navigate to="/acesso_usuario" replace />}/>
             {buildRoutes("user")}
           </Route>
           <Route exact path="/admin" element={<PrivateRoute checkAdmin />}>

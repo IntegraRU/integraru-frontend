@@ -15,25 +15,21 @@ const userReducer = (state, action) => {
 
 const UserContext = createContext();
 
-const mockUser = {
-    name: "Fulana",
-    admin: true
-}
-
 export function UserProvider({ children }) {
-    const [currentUser, dispatch] = useReducer(userReducer, mockUser);
+    const [currentUser, dispatch] = useReducer(userReducer, null);
 
     useEffect( () => {
-        const token = localStorage.getItem('@iru/token') || sessionStorage.getItem('@iru/token');
-        const getUser = async() => {
+        // TODO: Remove after getUserData is ok
+        dispatch({ type: 'SET_LOGGED_USER', payload: localStorage.getItem('@iru/token') || sessionStorage.getItem('@iru/token') });
+        const getUserData = async() => {
             try{
-                const response = await api().get('/user', {token});
+                const response = await api().get('/user');
                 dispatch({ type: 'SET_LOGGED_USER', payload: response.data});
             } catch(e) {
                 alert(e);
             }
         };
-        // getUser();
+        //getUserData();
     }, []);
 
     const performLogin = useCallback(async (userData, persistantLogin) => {
@@ -59,7 +55,7 @@ export function UserProvider({ children }) {
         if (!currentUser) return [];
         const userType = currentUser?.admin ? "admin" : "user";
         const abbr = currentUser?.admin ? "admin" : "";
-        return serviceRoutes.filter((route) => route.type === userType).map(route => ({...route, route: `${abbr}/${route.route}`}));
+        return serviceRoutes.filter((route) => route.type === userType && route.directAccess).map(route => ({...route, route: `${abbr}/${route.route}`}));
     }, [currentUser]);
 
     return (

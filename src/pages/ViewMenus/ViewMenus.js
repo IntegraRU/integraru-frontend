@@ -1,10 +1,11 @@
 import styles from "./ViewMenus.module.css";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { MenuCard, Header } from "../../components";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from 'react-icons/ai';
 import Meal from '../../assets/food.png';
+import api from "../../services/api";
 
 const defaultFilters = {
     date: new Date(),
@@ -65,6 +66,7 @@ const mockMenus = [
 export default function ViewMenus() {
 
     const [currentFilters, dispatch] = useReducer(filterReducer, defaultFilters);
+    const [currentMenus, setCurrentMenus] = useState(mockMenus);
     const navigate = useNavigate();
 
     return (
@@ -85,7 +87,7 @@ export default function ViewMenus() {
                 </select>
             </div>
             <div className={styles.view__menus}>
-                {mockMenus.filter(menu => menu.meal === currentFilters.meal && menu.date.toDateString() === currentFilters.date.toDateString())
+                {currentMenus.filter(menu => menu.meal === currentFilters.meal && menu.date.toDateString() === currentFilters.date.toDateString())
                           .map((menu, idx) => <MenuCard cardData={menu} key={idx} type='edit' />)}
             </div>
             <button className={styles.view__addButton} onClick={()=>navigate('/admin/cardapio/novo')}>

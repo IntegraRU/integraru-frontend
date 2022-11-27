@@ -6,6 +6,7 @@ import ViewMenus from "./pages/ViewMenus";
 import ChangeMenu from "./pages/ChangeMenu";
 import Profile from './pages/Profile';
 import UserMenus from "./pages/UserMenus";
+import History from "./pages/History";
 
 export const serviceRoutes = [
   {
@@ -55,6 +56,13 @@ export const serviceRoutes = [
     route: "cardapio",
     icon: GiKnifeFork,
     component: UserMenus,
+    type: 'user',
+  },
+  {
+    name: "Visualizar Histórico",
+    route: "historico",
+    icon: GiKnifeFork,
+    component: History,
     type: 'user',
   }
 ];

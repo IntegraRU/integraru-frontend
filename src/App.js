@@ -30,6 +30,9 @@ function App() {
           <Route exact path='/admin' element={<PrivateRoute checkAdmin />}>
             {buildRoutes("admin")}
           </Route>
+          <Route exact path='/historico-refeicoes' element={<PrivateRoute />}>
+            {buildRoutes("user")}
+          </Route>
           {/* TODO: Decidir o que fazer com rotas incorretas
         <Route path="*" element={<Navigate to="/acesso_usuario" replace />}/> */}
         </Routes>

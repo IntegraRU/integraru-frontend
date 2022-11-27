@@ -26,6 +26,12 @@ const mockMeals = [
     rate: 1,
     date: "20/01/2022",
   },
+  {
+    title: "Cuscuz recheado",
+    image: Meal,
+    rate: 1,
+    date: "20/01/2022",
+  },
 ];
 
 function History() {

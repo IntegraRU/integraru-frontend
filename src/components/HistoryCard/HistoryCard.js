@@ -17,7 +17,6 @@ export default function HistoryCard({ cardData }) {
           <h3>
             <img src={fullStar} />
             <img src={fullStar} />
-
             <img src={fullStar} />
             <img src={halfEmptyStar} />
           </h3>

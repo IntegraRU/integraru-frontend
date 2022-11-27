@@ -1,5 +1,11 @@
 import React, { useCallback } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import UserAccess from "./pages/UserAccess";
 import { serviceRoutes } from "./Routes";
 import { UserProvider } from "./contexts/userContext";
@@ -24,14 +30,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/acesso_usuario" element={<UserAccess />} exact />
-          <Route exact path='/' element={<PrivateRoute />}>
+          <Route exact path="/" element={<PrivateRoute />}>
             {buildRoutes("user")}
           </Route>
-          <Route exact path='/admin' element={<PrivateRoute checkAdmin />}>
+          <Route exact path="/admin" element={<PrivateRoute checkAdmin />}>
             {buildRoutes("admin")}
-          </Route>
-          <Route exact path='/historico-refeicoes' element={<PrivateRoute />}>
-            {buildRoutes("user")}
           </Route>
           {/* TODO: Decidir o que fazer com rotas incorretas
         <Route path="*" element={<Navigate to="/acesso_usuario" replace />}/> */}

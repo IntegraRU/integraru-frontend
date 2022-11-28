@@ -1,21 +1,27 @@
-import { Header } from "../../components";
-import Meal from "../../assets/food.png";
-import styles from "./Checkout.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
-const defaultFilters = {
-  date: new Date(),
-  meal: "Almoço",
+import { Header } from "../../components";
+
+import styles from "./Checkout.module.css";
+
+const formatDate = (dateParam) => {
+  const date = new Date(dateParam);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
 };
 
 export default function Checkout() {
   const { state: menuData } = useLocation();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   console.log(menuData);
-  // }, []);
+  const handleConfirm = () => {
+    alert('Confirmando');
+    // TODO: BACK
+    navigate(-1)
+  }
 
   return (
     <div className={styles.checkout}>
@@ -30,9 +36,9 @@ export default function Checkout() {
         </div>
         <div className={styles.checkout__filters}>
           <span id={styles.checkout__date}>
-            {defaultFilters.date.toDateString()}
+            {formatDate(menuData.date)}
           </span>
-          <span id={styles.checkout__meal}>{defaultFilters.meal}</span>
+          <span id={styles.checkout__meal}>{menuData.meal}</span>
         </div>
         <div className={styles.checkout__chosenMenu}>
           <img
@@ -54,7 +60,7 @@ export default function Checkout() {
           </div>
         </div>
         <div className={styles.checkout__actionArea}>
-          <button>Confirmar Reserva</button>
+          <button onClick = {handleConfirm}>Confirmar Reserva</button>
           <button onClick={() => navigate(-1)}>Alterar Refeição</button>
         </div>
       </main>

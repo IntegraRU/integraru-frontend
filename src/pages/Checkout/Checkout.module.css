@@ -65,6 +65,7 @@
 
 .checkout__chosenMenu img {
     align-self: flex-start;
+    max-width: 40%;
 }
 
 .checkout__menuInfo>span:nth-child(1) {

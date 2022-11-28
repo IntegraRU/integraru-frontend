@@ -1,27 +1,20 @@
+import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import format from "date-fns/format";
 
 import { Header } from "../../components";
 
 import styles from "./Checkout.module.css";
 
-const formatDate = (dateParam) => {
-  const date = new Date(dateParam);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-
-  return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-};
-
 export default function Checkout() {
   const { state: menuData } = useLocation();
   const navigate = useNavigate();
 
-  const handleConfirm = () => {
-    alert('Confirmando');
+  const handleConfirm = useCallback(() => {
+    alert("Confirmando");
     // TODO: BACK
-    navigate(-1)
-  }
+    navigate(-1);
+  }, []);
 
   return (
     <div className={styles.checkout}>
@@ -35,9 +28,7 @@ export default function Checkout() {
           </span>
         </div>
         <div className={styles.checkout__filters}>
-          <span id={styles.checkout__date}>
-            {formatDate(menuData.date)}
-          </span>
+          <span id={styles.checkout__date}>{format(menuData.date, "dd/MM/yyyy")}</span>
           <span id={styles.checkout__meal}>{menuData.meal}</span>
         </div>
         <div className={styles.checkout__chosenMenu}>
@@ -60,7 +51,7 @@ export default function Checkout() {
           </div>
         </div>
         <div className={styles.checkout__actionArea}>
-          <button onClick = {handleConfirm}>Confirmar Reserva</button>
+          <button onClick={handleConfirm}>Confirmar Reserva</button>
           <button onClick={() => navigate(-1)}>Alterar Refeição</button>
         </div>
       </main>

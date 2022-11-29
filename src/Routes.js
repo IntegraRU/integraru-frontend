@@ -15,6 +15,7 @@ export const serviceRoutes = [
     icon: BiHome,
     component: Home,
     type: "user",
+    directAccess: true,
   },
   {
     name: "Perfil",
@@ -22,6 +23,7 @@ export const serviceRoutes = [
     icon: BiUser,
     component: Profile,
     type: "user",
+    directAccess: true,
   },
   {
     name: "Página inicial",
@@ -29,6 +31,7 @@ export const serviceRoutes = [
     icon: BiHome,
     component: Home,
     type: "admin",
+    directAccess: true,
   },
   {
     name: "Cadastrar Cardápio",
@@ -36,6 +39,7 @@ export const serviceRoutes = [
     icon: GiKnifeFork,
     component: ChangeMenu,
     type: "admin",
+    directAccess: false,
   },
   {
     name: "Editar Cardápio",
@@ -43,20 +47,23 @@ export const serviceRoutes = [
     icon: GiKnifeFork,
     component: ChangeMenu,
     type: "admin",
+    directAccess: false,
   },
   {
-    name: "Visualizar Cardápios",
+    name: "Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
     component: ViewMenus,
     type: "admin",
+    directAccess: true,
   },
   {
-    name: "Visualizar Cardápios",
+    name: "Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
     component: UserMenus,
     type: "user",
+    directAccess: true,
   },
   {
     name: "Checkout",

@@ -9,7 +9,7 @@ export default function MenuCard({ cardData, type }) {
   const menuInteraction = useCallback(()=>{
     if(type === 'edit') navigate("/admin/cardapio/editar", { state: cardData });
     // TODO: rota não implementada ainda
-    else navigate('/checkout');
+    else navigate('/checkout', { state: cardData });
   }, [cardData, navigate, type]);
 
   return (

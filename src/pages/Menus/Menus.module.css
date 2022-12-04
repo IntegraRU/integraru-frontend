@@ -1,24 +1,24 @@
-.view{
+.menus{
     margin: 14vh 10vw 5vh;
     display: flex;
     flex-direction: column;
     gap: 4vh;
 }
 
-.view__title{
+.menus__title{
     color: var(--dark-blue);
     font-weight: 600;
     margin-bottom: 3vh;
 }
 
-.view__filters{
+.menus__filters{
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid var(--mid-grey);
     padding: 0.8rem;
 }
 
-.view__filters > select{
+.menus__filters > select{
     padding: 0.2rem 1.5rem;
     border: none;
     background-color: var(--mid-grey);
@@ -27,7 +27,7 @@
     font-size: 1.4rem;
 }
 
-.view__datepicker{
+.menus__datepicker{
     background: none;
     border: none;
     max-width: 33vw;
@@ -35,13 +35,13 @@
     color: var(--dark-blue);
 }
 
-.view__menus{
+.menus__menus{
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
-.view__addButton{
+.menus__addButton{
     background-color: var(--dark-blue);
     border-radius: 50%;
     width: 6rem;
@@ -50,7 +50,7 @@
     margin-top: 7vh;
 }
 
-.view__addButton > svg {
+.menus__addButton > svg {
     color: var(--white);
     font-size: 3rem;
 }

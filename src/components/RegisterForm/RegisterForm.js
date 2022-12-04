@@ -3,6 +3,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useNavigate } from "react-router-dom";
 import {useUser} from "../../contexts/userContext";
 import styles from "./RegisterForm.module.css";
 
@@ -23,15 +24,25 @@ export default function RegisterForm() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(registerSchema)
     });
-
+    const navigate = useNavigate();
     const { performRegistration } = useUser();
 
     const submitForm = useCallback((data) => {
-        performRegistration({
-            registration: data.registration,
-            password: data.password
-        }, data.stay_connected)
-        .catch(e => alert(e));
+        const register = async () => {
+            try{
+                await performRegistration({
+                    matricula: `${data.registration}`,
+                    senha: data.password,
+                    nome: data.name,
+                    email: data.email,
+                    telefone: data.phone
+                });
+                navigate(0);
+            } catch(e) {
+                alert(e);
+            }
+        };
+        register();
     }, [performRegistration]);
 
     return (

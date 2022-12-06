@@ -1,0 +1,121 @@
+.checkout {
+    margin: 12vh 10vw 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+
+.checkout h1 {
+    font-size: 2.8rem;
+    margin-bottom: 3.2rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+}
+
+.checkout__available {
+    border-bottom: 1px solid var(--mid-grey);
+    color: var(--dark-blue);
+}
+
+.checkout__available h2 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+}
+
+.checkout__available span {
+    font-size: 1.6rem;
+    color: var(--mid-blue)
+}
+
+#checkout__value {
+    font-size: 3.2rem;
+}
+
+.checkout__filters {
+    margin-top: 3.2rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--dark-blue);
+    font-weight: 500;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--mid-grey);
+}
+
+#checkout__meal {
+    padding: 0.2rem 2rem;
+    border: none;
+    background-color: var(--mid-grey);
+    border-radius: 16px;
+    color: var(--dark-blue);
+    font-size: 1.4rem;
+}
+
+.checkout__chosenMenu {
+    background-color: var(--mid-grey);
+    display: flex;
+    flex-direction: row;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: var(--dark-blue);
+    padding: 1rem 1rem 2rem;
+    gap: 1rem;
+    margin-top: 2.4rem;
+}
+
+.checkout__chosenMenu img {
+    align-self: flex-start;
+    max-width: 40%;
+}
+
+.checkout__menuInfo>span:nth-child(1) {
+    display: block;
+    margin: 0.8rem 0 2.4rem 0;
+    font-size: 1.2rem;
+}
+
+.checkout__menuInfo>span:nth-child(2) {
+    display: block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+#checkout__ingredients span {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1.4rem;
+}
+
+#checkout__ingredients ul li {
+    font-size: 1.2rem;
+    list-style: none;
+}
+
+#checkout__ingredients ul li::before {
+    content: "\2022";
+    display: inline-block;
+    width: 1em;
+    margin-left: -1.6em;
+}
+
+.checkout__actionArea {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+    align-items: center;
+}
+.checkout__actionArea button:nth-child(1) {
+    background-color: var(--dark-blue);
+    color: var(--grey);
+    border-radius: 8px;
+    padding: 0.8rem 1.6rem;
+    width: fit-content;
+    margin-bottom: 1.6rem;
+}
+
+.checkout__actionArea button:nth-child(2) {
+    background: none;
+    color: var(--dark-blue);
+}
+

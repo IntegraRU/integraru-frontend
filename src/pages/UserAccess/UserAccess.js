@@ -2,7 +2,7 @@ import styles from "./UserAccess.module.css";
 import React, { useEffect, useReducer } from "react";
 import {LoginForm, RegisterForm} from "../../components";
 import { useUser } from "../../contexts/userContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const tabReducer = (state, action) => {
     switch (action) {

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className={styles.home__container}>
       <header>
-        <span>{`Olá, ${currentUser.name}!`}</span>
+        <span>{`Olá, ${currentUser.nome}!`}</span>
       </header>
       <main>
         <h2>Escolha qualquer uma das opções abaixo</h2>

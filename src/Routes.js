@@ -2,10 +2,9 @@ import { BiHome, BiUser } from "react-icons/bi";
 import { GiKnifeFork } from "react-icons/gi";
 
 import Home from "./pages/Home";
-import ViewMenus from "./pages/ViewMenus";
+import Menus from "./pages/Menus";
 import ChangeMenu from "./pages/ChangeMenu";
 import Profile from "./pages/Profile";
-import UserMenus from "./pages/UserMenus";
 import Checkout from "./pages/Checkout";
 
 export const serviceRoutes = [
@@ -53,7 +52,7 @@ export const serviceRoutes = [
     name: "Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
-    component: ViewMenus,
+    component: Menus,
     type: "admin",
     directAccess: true,
   },
@@ -61,7 +60,7 @@ export const serviceRoutes = [
     name: "Cardápios",
     route: "cardapio",
     icon: GiKnifeFork,
-    component: UserMenus,
+    component: Menus,
     type: "user",
     directAccess: true,
   },

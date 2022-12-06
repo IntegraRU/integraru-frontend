@@ -3,6 +3,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from "react-router-dom";
 import * as yup from 'yup';
 import styles from "./LoginForm.module.css";
 import {useUser} from "../../contexts/userContext";
@@ -19,15 +20,25 @@ export default function LoginForm({ changeForm }) {
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema)
     });
-    const { performLogin } = useUser();
+  const navigate = useNavigate();
+  const { performLogin } = useUser();
 
     const submitForm = useCallback((data) => {
-        performLogin({
-            username: data.registration,
-            password: data.password
-        }, data.stay_connected)
-        .catch(e => alert(e));
-    }, [performLogin]);
+        const login = async () => {
+            try{
+                await performLogin({
+                        username: data.registration,
+                        password: data.password
+                    },
+                    data.stay_connected
+                );
+                navigate(0)
+            } catch(e) {
+                alert(e);
+            }
+        };
+        login();
+    }, [navigate, performLogin]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>

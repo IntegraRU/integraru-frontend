@@ -4,13 +4,15 @@ import {Header} from "../../components";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import {AiOutlineCloudUpload, AiOutlineClose, AiOutlineCheck} from 'react-icons/ai';
+import api from "../../services/api";
+import { format, parse } from "date-fns";
 
 const registerSchema = yup.object({
     title: yup.string().required('Título é obrigatório!'),
-    image: yup.mixed().test("fileType", "Formato da imagem inválido", file => ['jpg', 'png', 'jpeg'].includes(file.type)),
+    image: yup.mixed().test("fileType", "Formato da imagem inválido", file => !file.length || ['jpg', 'png', 'jpeg'].includes(file.type)),
     ingredients: yup.string().required('Ingredientes são obrigatórios')
 }).required();
 
@@ -19,8 +21,29 @@ export default function ChangeMenu() {
         resolver: yupResolver(registerSchema)
     });
     const { state: previousMenu } = useLocation();
+    const navigate = useNavigate();
 
-    const submitForm = useCallback((data) => console.log(data), []);
+    const submitForm = useCallback((data) => {
+        const menuSubmit = async ()=>{
+            try{
+                await api().request({
+                    url: '/prato',
+                    method: previousMenu ? 'PUT' : 'POST',
+                    data: {
+                        tipo: data.type,
+                        modalidadePrato: data.meal,
+                        nome: data.title,
+                        itens: data.ingredients,
+                        data: format(data.date, 'dd/MM/yyyy')
+                    }
+                });
+                navigate('/admin/cardapio');
+            } catch(e){
+                alert(e);
+            }
+        };
+        menuSubmit();
+    }, [navigate, previousMenu]);
 
     return (
         <div className={styles.menu}>
@@ -31,7 +54,7 @@ export default function ChangeMenu() {
                     <Controller
                         name="date"
                         control={control}
-                        defaultValue={previousMenu ? previousMenu.date : new Date()}
+                        defaultValue={previousMenu && previousMenu.data ? parse(previousMenu.data, 'dd/MM/yyyy', new Date()) : new Date()}
                         render={({ field: { onChange, value } }) => (
                             <DatePicker
                                 selected={value}
@@ -42,9 +65,9 @@ export default function ChangeMenu() {
                             />
                         )}
                     />
-                    <select defaultValue={previousMenu && previousMenu.meal} {...register('meal')} >
-                        <option>Almoço</option>
-                        <option>Jantar</option>
+                    <select defaultValue={previousMenu && previousMenu.modalidadePrato} {...register('meal')} >
+                        <option value="ALMOCO">Almoço</option>
+                        <option value="JANTAR">Jantar</option>
                     </select>
                 </div>
                 <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>
@@ -55,20 +78,20 @@ export default function ChangeMenu() {
                 </div>
                 <div className={styles.menu__form__field}>
                     <label>Nome</label>
-                    <input defaultValue={previousMenu && previousMenu.title} placeholder="ex: Feijoada com Arroz" {...register('title')} />
+                    <input defaultValue={previousMenu && previousMenu.nome} placeholder="ex: Feijoada com Arroz" {...register('title')} />
                     <p className={styles.menu__form__error}>{errors.title?.message}</p>
                 </div>
                 <div className={styles.menu__form__field}>
                     <label>Ingredientes <span>(Separados por vírgula)</span></label>
-                    <textarea defaultValue={previousMenu && previousMenu.ingredients} placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
+                    <textarea defaultValue={previousMenu && previousMenu.itens} placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
                     <p className={styles.menu__form__error}>{errors.ingredients?.message}</p>
                 </div>
                 <div className={styles.menu__form__field}>
                     <label>Tipo</label>
-                    <select defaultValue={previousMenu && previousMenu.type} className={styles.menu__form__field__select} {...register('type')}>
-                        <option>Comum</option>
-                        <option>Vegetariano</option>
-                        <option>Vegano</option>
+                    <select defaultValue={previousMenu && previousMenu.tipo} className={styles.menu__form__field__select} {...register('type')}>
+                        <option value="COMUM">Comum</option>
+                        <option value="VEGETARIANO">Vegetariano</option>
+                        <option value="VEGANO">Vegano</option>
                     </select>
                 </div>
 

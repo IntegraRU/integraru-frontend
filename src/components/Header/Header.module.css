@@ -73,3 +73,10 @@
   left: 0;
   width: 100%;
 }
+
+.logout{
+  background: none !important;
+  outline: none;
+  align-self: flex-start;
+  color: var(--mid-blue);
+}

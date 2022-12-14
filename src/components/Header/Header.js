@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import { slide as Menu } from "react-burger-menu";
 import { useUser } from '../../contexts/userContext';
+import {ImExit} from 'react-icons/im';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { getUserRoutes } = useUser();
+  const { getUserRoutes, performLogout } = useUser();
 
   return (
     <>
@@ -25,6 +26,7 @@ export default function Header() {
       >
         {getUserRoutes().map(route =>
           <Link key={route.name} to={`/${route.route}`}><route.icon size="2rem" /> {route.name}</Link>)}
+        <button className={styles.logout} onClick={performLogout}><ImExit /> Sair</button>
       </Menu>
     </>
   );

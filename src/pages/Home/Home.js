@@ -15,7 +15,7 @@ export default function Home() {
       <main>
         <h2>Escolha qualquer uma das opções abaixo</h2>
         <div className={styles.home__navigationContainer}>
-          {getUserRoutes().map(route => (
+          {getUserRoutes().filter(route => !route.route.includes("/inicio")).map(route => (
             <ServiceCard name={route.name} route={route.route} key={route.route}>
               <route.icon size="48px" />
             </ServiceCard>

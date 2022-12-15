@@ -1,11 +1,12 @@
 import { BiHome, BiUser } from "react-icons/bi";
-import { GiKnifeFork } from "react-icons/gi";
+import { GiKnifeFork, GiMoneyStack } from "react-icons/gi";
 
 import Home from "./pages/Home";
 import Menus from "./pages/Menus";
 import ChangeMenu from "./pages/ChangeMenu";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
+import AddCredit from "./pages/AddCredit";
 
 export const serviceRoutes = [
   {
@@ -17,6 +18,14 @@ export const serviceRoutes = [
     directAccess: true,
   },
   {
+    name: "Página inicial",
+    route: "inicio",
+    icon: BiHome,
+    component: Home,
+    type: "admin",
+    directAccess: true,
+  },
+  {
     name: "Perfil",
     route: "perfil",
     icon: BiUser,
@@ -25,10 +34,10 @@ export const serviceRoutes = [
     directAccess: true,
   },
   {
-    name: "Página inicial",
-    route: "inicio",
-    icon: BiHome,
-    component: Home,
+    name: "Perfil",
+    route: "perfil",
+    icon: BiUser,
+    component: Profile,
     type: "admin",
     directAccess: true,
   },
@@ -72,4 +81,12 @@ export const serviceRoutes = [
     type: "user",
     directAccess: false,
   },
+  {
+    name: "Adicionar Crédito",
+    route: "credito",
+    icon: GiMoneyStack,
+    component: AddCredit,
+    type: "admin",
+    directAccess: true,
+  }
 ];

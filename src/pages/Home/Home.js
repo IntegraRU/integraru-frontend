@@ -1,5 +1,6 @@
 import ServiceCard from "../../components/ServiceCard";
 import {useUser} from "../../contexts/userContext";
+import { GiMoneyStack } from 'react-icons/gi';
 
 import styles from "./Home.module.css";
 
@@ -10,12 +11,15 @@ export default function Home() {
   return (
     <div className={styles.home__container}>
       <header>
-        <span>{`Olá, ${currentUser.nome}!`}</span>
+        <h1>{`Olá, ${currentUser.nome}!`}</h1>
+        <span>
+          <GiMoneyStack /> Saldo Atual: R$ 30,00
+        </span>
       </header>
       <main>
         <h2>Escolha qualquer uma das opções abaixo</h2>
         <div className={styles.home__navigationContainer}>
-          {getUserRoutes().map(route => (
+          {getUserRoutes().filter(route => !route.route.includes("inicio")).map(route => (
             <ServiceCard name={route.name} route={route.route} key={route.route}>
               <route.icon size="48px" />
             </ServiceCard>

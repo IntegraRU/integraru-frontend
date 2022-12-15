@@ -1,0 +1,76 @@
+.credit{
+    margin: 14vh 10vw 5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.credit__title{
+    font-weight: 600;
+    font-size: 2.3rem;
+    color: var(--dark-blue);
+    margin-bottom: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4vh;
+}
+
+.credit__title__image{
+    max-height: 15vh;
+}
+
+.credit__form{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.credit__form__field{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+}
+
+.credit__form__field > input, .credit__form__field > textarea {
+    border: none;
+    resize: none;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+}
+
+.credit__form__field > label {
+    color: var(--dark-blue);
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.credit__form__error {
+    font-size: 1.2rem;
+    color: var(--red);
+}
+
+.credit__form__field > label > span {
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.credit__form__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2.5vh;
+}
+
+.credit__form__clearButton, .credit__form__submitButton {
+    color: var(--dark-blue);
+    background-color: var(--white);
+    border-radius: 50%;
+    box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 2.5rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+}
+
+.credit__form__submitButton{
+    color: var(--white);
+    background-color: var(--dark-blue);
+}

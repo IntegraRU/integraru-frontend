@@ -1,12 +1,17 @@
 import { serviceRoutes } from "../Routes";
 import { useCallback, useEffect, useReducer, createContext, useContext } from "react";
 import api from '../services/api';
+import jwt_decode from 'jwt-decode';
 
 const userReducer = (state, action) => {
     switch (action.type) {
         case "SET_LOGGED_USER":
-            return action.payload;
+            return {...action.payload, admin: false };
+        case "SET_LOGGED_ADMIN":
+            return {...action.payload, admin: true};
         case "RESET_USER":
+            localStorage.removeItem('@iru/token');
+            sessionStorage.removeItem('@iru/token');
             return null;
         default:
             return state;
@@ -19,17 +24,28 @@ export function UserProvider({ children }) {
     const [currentUser, dispatch] = useReducer(userReducer, null);
 
     useEffect( () => {
-        // TODO: Remove after getUserData is ok
-        dispatch({ type: 'SET_LOGGED_USER', payload: localStorage.getItem('@iru/token') || sessionStorage.getItem('@iru/token') });
         const getUserData = async() => {
-            try{
-                const response = await api().get('/user');
-                dispatch({ type: 'SET_LOGGED_USER', payload: response.data});
-            } catch(e) {
-                alert(e);
+            const token = localStorage.getItem('@iru/token') || sessionStorage.getItem('@iru/token');
+            if(token){
+                try{
+                    const jwtInfo = jwt_decode(token);
+                    const response = await api().get(`/user/${jwtInfo.sub}`);
+                    if(response.status !== 200){
+                        dispatch({ type: 'RESET_USER' });
+                    } else {
+                        dispatch({ 
+                            type: jwtInfo.role === "ADMINISTRADOR" ? 'SET_LOGGED_ADMIN' : 'SET_LOGGED_USER', 
+                            payload: response.data
+                        });
+                    }
+                } catch(e) {
+                    alert(e);
+                }
+            } else {
+                dispatch({ type: 'RESET_USER' });
             }
         };
-        //getUserData();
+        getUserData();
     }, []);
 
     const performLogin = useCallback(async (userData, persistantLogin) => {
@@ -37,18 +53,23 @@ export function UserProvider({ children }) {
 
         if(persistantLogin) localStorage.setItem('@iru/token', response.data.token);
         else sessionStorage.setItem('@iru/token', response.data.token);
-        dispatch({ type: 'SET_LOGGED_USER', payload: response.data });
     }, []);
 
     const performRegistration = useCallback(async (userData) => {
-        const response = await api().post('/register', userData);
-        localStorage.setItem('@iru/token', response.data.token);
+        const response = await api().post('/user', userData);
+        await performLogin({
+            username: response.data.matricula,
+            password: response.data.senha
+        }, true);
         dispatch({ type: 'SET_LOGGED_USER', payload: response.data });
-    }, []);
+    }, [performLogin]);
 
     const performLogout = useCallback(async () => {
-        await api().put('/logout');
         dispatch({ type: 'RESET_USER' });
+    }, []);
+
+    const performEdit = useCallback(async (userNewData) => {
+
     }, []);
 
     const getUserRoutes = useCallback(() => {
@@ -59,7 +80,7 @@ export function UserProvider({ children }) {
     }, [currentUser]);
 
     return (
-        <UserContext.Provider value={{ currentUser, performLogin, performRegistration, performLogout, getUserRoutes }}>
+        <UserContext.Provider value={{ currentUser, performLogin, performRegistration, performLogout, performEdit, getUserRoutes }}>
             {children}
         </UserContext.Provider>
     )
@@ -68,6 +89,6 @@ export function UserProvider({ children }) {
 export function useUser() {
     const context = useContext(UserContext);
     if (!context) throw new Error("Sem contexto de usuário")
-    const {currentUser, performLogin, performRegistration, performLogout, getUserRoutes} = context;
-    return {currentUser, performLogin, performRegistration, performLogout, getUserRoutes};
+    const {currentUser, performLogin, performRegistration, performLogout, performEdit, getUserRoutes} = context;
+    return {currentUser, performLogin, performRegistration, performLogout, performEdit, getUserRoutes};
 }

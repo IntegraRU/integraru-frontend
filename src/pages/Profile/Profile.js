@@ -7,6 +7,7 @@ import User from "../../assets/user.png";
 import * as yup from "yup";
 import { SlPencil } from "react-icons/sl";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
+import { useUser } from "../../contexts/userContext";
 
 const modeReducer = (state, action) => {
   switch (action) {
@@ -33,16 +34,9 @@ const profileSchema = yup
   })
   .required();
 
-// TODO: REMOVE AFTER BACKEND
-const mockUser = {
-  name: "Eduardo Costa Figueiredo Tavarez",
-  email: "exemplo@exemplo.com",
-  code: 119200000,
-  phone: "(99) 99999-9999",
-};
-
 export default function Profile() {
   const [mode, dispatch] = useReducer(modeReducer, "VIEW");
+  const { currentUser, performEdit } = useUser();
   const {
     register,
     handleSubmit,
@@ -52,7 +46,8 @@ export default function Profile() {
   });
 
   const submitNewProfile = useCallback((data) => {
-    console.log(data);
+    //TODO: Fix after backend
+    performEdit()
     dispatch("SET_VIEW_MODE");
   }, [dispatch]);
 
@@ -61,7 +56,7 @@ export default function Profile() {
       <Header />
       <img
         src={User}
-        alt={`Foto de ${mockUser.name}`}
+        alt={`Foto de ${currentUser.nome}`}
         className={styles.profile__photo}
       />
       {mode === "VIEW" ? (
@@ -69,13 +64,13 @@ export default function Profile() {
           <h1 className={styles.profile__title}>Meu Perfil</h1>
           <div className={styles.profile__viewCard}>
             <h2>Nome</h2>
-            <p>{mockUser.name}</p>
+            <p>{currentUser.nome}</p>
             <h2>E-mail</h2>
-            <p>{mockUser.email}</p>
+            <p>{currentUser.email}</p>
             <h2>Matrícula</h2>
-            <p>{mockUser.code}</p>
+            <p>{currentUser.matricula}</p>
             <h2>Telefone</h2>
-            <p>{mockUser.phone}</p>
+            <p>{currentUser.telefone}</p>
           </div>
           <button
             className={styles.profile__editButton}
@@ -95,7 +90,7 @@ export default function Profile() {
                 <label for="name">Nome</label>
                 <input
                   placeholder="Insira seu nome completo"
-                  defaultValue={mockUser.name}
+                  defaultValue={currentUser.nome}
                   {...register("name")}
                 />
                 <p className={styles.profile__formError}>
@@ -106,7 +101,7 @@ export default function Profile() {
                 <label for="email">E-mail</label>
                 <input
                   placeholder="example@example.com"
-                  defaultValue={mockUser.email}
+                  defaultValue={currentUser.email}
                   {...register("email")}
                 />
                 <p className={styles.profile__formError}>
@@ -114,11 +109,11 @@ export default function Profile() {
                 </p>
               </div>
               <div className={styles.profile__field}>
-                <label for="code">Matrícula</label>
+                <label for="registration">Matrícula</label>
                 <input
-                  defaultValue={mockUser.code}
+                  defaultValue={currentUser.matricula}
                   disabled
-                  {...register("code")}
+                  {...register("registration")}
                 />
               </div>
               <div className={styles.profile__field}>
@@ -126,7 +121,7 @@ export default function Profile() {
                 <input
                   type={"tel"}
                   placeholder="(00) 98765 4321"
-                  defaultValue={mockUser.phone}
+                  defaultValue={currentUser.telefone}
                   {...register("phone")}
                 />
                 <p className={styles.profile__formError}>

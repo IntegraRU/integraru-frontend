@@ -1,5 +1,6 @@
 import { BiHome, BiUser } from "react-icons/bi";
 import { GiKnifeFork, GiMoneyStack } from "react-icons/gi";
+import { AiOutlineStar } from 'react-icons/ai';
 
 import Home from "./pages/Home";
 import Menus from "./pages/Menus";
@@ -7,6 +8,7 @@ import ChangeMenu from "./pages/ChangeMenu";
 import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 import AddCredit from "./pages/AddCredit";
+import HistoryRate from "./pages/HistoryRate";
 
 export const serviceRoutes = [
   {
@@ -86,6 +88,14 @@ export const serviceRoutes = [
     route: "credito",
     icon: GiMoneyStack,
     component: AddCredit,
+    type: "admin",
+    directAccess: true,
+  },
+  {
+    name: "Histórico de Avaliações",
+    route: "avaliacoes",
+    icon: AiOutlineStar,
+    component: HistoryRate,
     type: "admin",
     directAccess: true,
   }

@@ -1,40 +1,31 @@
-import React from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./History.module.css";
 import { Header, HistoryCard } from "../../components";
-import Meal from "../../assets/food.png";
 import Calendar from "../../assets/schedule-icon.png";
 import button1 from "../../assets/button1.png";
 import button2 from "../../assets/button2.png";
+import api from "../../services/api";
+import { useUser } from '../../contexts/userContext';
 
-// TODO: REMOVE AFTER BACKEND
-const mockMeals = [
-  {
-    title: "Ensopado",
-    image: Meal,
-    rate: 1,
-    date: "20/01/2022",
-  },
-  {
-    title: "Sopinha de legumes",
-    image: Meal,
-    rate: 1,
-    date: "20/01/2022",
-  },
-  {
-    title: "Cuscuz recheado",
-    image: Meal,
-    rate: 1,
-    date: "20/01/2022",
-  },
-  {
-    title: "Cuscuz recheado",
-    image: Meal,
-    rate: 1,
-    date: "20/01/2022",
-  },
-];
 
 function History() {
+  const [refeicoes, setRefeicoes] = useState([]);
+  const navigate = useNavigate();
+  const { currentUser } = useUser();
+
+  useEffect(() => {
+    const fetchRefeicoes = async () => {
+      try {
+        const response = await api().get("/refeicao");
+        setRefeicoes(response.data);
+      } catch (e) {
+        alert(e);
+      }
+    };
+    fetchRefeicoes();
+  }, []);
+
   return (
     <div className={styles.menu}>
       <Header />
@@ -45,7 +36,7 @@ function History() {
         </h1>
       </div>
       <div className={styles.menu__menus}>
-        {mockMeals.map((menu) => (
+        {refeicoes.map((menu) => (
           <HistoryCard cardData={menu} />
         ))}
       </div>

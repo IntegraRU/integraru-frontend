@@ -74,7 +74,7 @@ export const serviceRoutes = [
     directAccess: false,
   },
   {
-    name: "Visualizar Histórico",
+    name: "Histórico de refeições",
     route: "historico",
     icon: GiKnifeFork,
     component: History,

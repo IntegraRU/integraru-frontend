@@ -1,6 +1,7 @@
 import { BiHome, BiUser } from "react-icons/bi";
 import { GiKnifeFork, GiMoneyStack } from "react-icons/gi";
 import { AiOutlineStar } from 'react-icons/ai';
+import { HiOutlineDocumentReport } from 'react-icons/hi';
 
 import Home from "./pages/Home";
 import Menus from "./pages/Menus";
@@ -9,6 +10,7 @@ import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 import AddCredit from "./pages/AddCredit";
 import HistoryRate from "./pages/HistoryRate";
+import Reports from './pages/Reports';
 
 export const serviceRoutes = [
   {
@@ -96,6 +98,14 @@ export const serviceRoutes = [
     route: "avaliacoes",
     icon: AiOutlineStar,
     component: HistoryRate,
+    type: "admin",
+    directAccess: true,
+  },
+  {
+    name: "Relatórios",
+    route: "relatorios",
+    icon: HiOutlineDocumentReport,
+    component: Reports,
     type: "admin",
     directAccess: true,
   }

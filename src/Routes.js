@@ -1,6 +1,7 @@
 import { BiHome, BiUser } from "react-icons/bi";
 import { GiKnifeFork, GiMoneyStack, GiHotMeal } from "react-icons/gi";
 import { AiOutlineStar } from 'react-icons/ai';
+import { HiOutlineDocumentReport } from 'react-icons/hi';
 
 import Home from "./pages/Home";
 import Menus from "./pages/Menus";
@@ -10,6 +11,7 @@ import Checkout from "./pages/Checkout";
 import AddCredit from "./pages/AddCredit";
 import HistoryRate from "./pages/HistoryRate";
 import ConfirmCheckout from './pages/ConfirmCheckout';
+import Reports from './pages/Reports';
 
 export const serviceRoutes = [
   {
@@ -106,6 +108,14 @@ export const serviceRoutes = [
     icon: GiHotMeal,
     component: ConfirmCheckout,
     type: "admin",
-    directAccess: true,
+    directAccess: true
+  },
+  {
+    name: "Relatórios",
+    route: "relatorios",
+    icon: HiOutlineDocumentReport,
+    component: Reports,
+    type: "admin",
+    directAccess: true
   }
 ];

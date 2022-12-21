@@ -10,6 +10,8 @@
     padding: 1.6rem;
     border-radius: 8px;
     transition: ease-in-out .2s;
+    color: var(--dark-blue);
+    text-decoration: none;
 }
 
 .card__container:hover {

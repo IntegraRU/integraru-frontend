@@ -12,9 +12,12 @@ export default function Home() {
     <div className={styles.home__container}>
       <header>
         <h1>{`Olá, ${currentUser.nome}!`}</h1>
-        <span>
-          <GiMoneyStack /> Saldo Atual: R$ 30,00
-        </span>
+        {currentUser.admin ? 
+          <></> :
+          <span>
+            <GiMoneyStack /> Saldo Atual: R$ 30,00
+          </span>
+        }
       </header>
       <main>
         <h2>Escolha qualquer uma das opções abaixo</h2>

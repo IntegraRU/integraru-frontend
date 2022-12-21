@@ -13,7 +13,7 @@
 }
 
 .checkout__available {
-    border-bottom: 1px solid var(--mid-grey);
+    border-bottom: 1px solid var(--light-grey);
     color: var(--dark-blue);
 }
 
@@ -39,20 +39,20 @@
     color: var(--dark-blue);
     font-weight: 500;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--mid-grey);
+    border-bottom: 2px solid var(--light-grey);
 }
 
 #checkout__meal {
     padding: 0.2rem 2rem;
     border: none;
-    background-color: var(--mid-grey);
+    background-color: var(--light-grey);
     border-radius: 16px;
     color: var(--dark-blue);
     font-size: 1.4rem;
 }
 
 .checkout__chosenMenu {
-    background-color: var(--mid-grey);
+    background-color: var(--light-grey);
     display: flex;
     flex-direction: row;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);

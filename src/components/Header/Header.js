@@ -6,11 +6,11 @@ import {ImExit} from 'react-icons/im';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { getUserRoutes, performLogout } = useUser();
+  const { getUserRoutes, performLogout, currentUser } = useUser();
 
   return (
     <>
-      <button className={styles.return} onClick={() => { navigate(-1) }}>
+      <button className={styles.return} onClick={() => { navigate((currentUser.admin ? '/admin': "") + '/inicio') }}>
         Voltar
       </button>
       <Menu

@@ -26,7 +26,7 @@ export default function MenuCard({ cardData, type }) {
       </div>
       <h1 className={styles.card__ingredients__title}>Ingredientes</h1>
       <ul className={styles.card__ingredients}>
-        {cardData.ingredients?.split(',').map((ingredient, idx) => (
+        {cardData.itens?.split(',').map((ingredient, idx) => (
           <li key={idx}>{ingredient.trim()}</li>
         ))}
       </ul>

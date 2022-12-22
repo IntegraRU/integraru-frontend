@@ -15,7 +15,7 @@ export default function Home() {
         {currentUser.admin ? 
           <></> :
           <span>
-            <GiMoneyStack /> Saldo Atual: R$ 30,00
+            <GiMoneyStack /> Saldo Atual: R$ {currentUser.credito || '0,00'}
           </span>
         }
       </header>

@@ -32,16 +32,6 @@
     font-size: 3.2rem;
 }
 
-.checkout__filters {
-    margin-top: 3.2rem;
-    display: flex;
-    justify-content: space-between;
-    color: var(--dark-blue);
-    font-weight: 500;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--light-grey);
-}
-
 #checkout__meal {
     padding: 0.2rem 2rem;
     border: none;
@@ -58,33 +48,38 @@
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     color: var(--dark-blue);
-    padding: 1rem 1rem 2rem;
+    padding: 1rem 1rem 1rem;
     gap: 1rem;
     margin-top: 2.4rem;
 }
 
 .checkout__chosenMenu img {
     align-self: flex-start;
-    max-width: 40%;
+    max-width: 50%;
+}
+
+.checkout__menuInfo{
+    display: flex;
+    flex-direction: column;
 }
 
 .checkout__menuInfo>span:nth-child(1) {
     display: block;
-    margin: 0.8rem 0 2.4rem 0;
+    margin-bottom: 1rem;
     font-size: 1.2rem;
 }
 
 .checkout__menuInfo>span:nth-child(2) {
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-weight: 600;
     font-size: 1.6rem;
 }
 
 #checkout__ingredients span {
     display: block;
-    font-weight: 600;
-    margin-bottom: 1.4rem;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
 #checkout__ingredients ul li {
@@ -97,6 +92,17 @@
     display: inline-block;
     width: 1em;
     margin-left: -1.6em;
+}
+
+.checkout__value{
+    margin-top: 5vh;
+    font-size: 2rem !important;
+}
+
+.checkout__value > span {
+    color: var(--mid-blue);
+    font-weight: 500;
+    font-size: 1.7rem;
 }
 
 .checkout__actionArea {

@@ -13,8 +13,8 @@ import api from '../../services/api';
 
 
 export default function Reports() {
-
-    const [currentMenu, setCurrentMenu] = useState("Feijoada com Arroz");
+    const [allMenus, setAllMenus] = useState([]);
+    const [currentMenu, setCurrentMenu] = useState(0);
     const [currentComment, setCurrentComment] = useState(0);
     const [menuInfo, setMenuInfo] = useState({
         titulo: "Feijoada com Arroz",
@@ -89,32 +89,14 @@ export default function Reports() {
     const { currentUser } = useUser();
 
     useEffect(() => {
-        const fetchMenuInfo = async () => {
-            try {
-                // const response = await api().get('/pratos', {
-                //     params: {
-                //         date: format(currentFilters.date, 'dd/MM/yyyy'),
-                //         type: currentFilters.meal
-                //     }
-                // });
-                // setCurrentMenus(response.data);
-            } catch (e) {
-                alert(e);
-            }
-        }
-        fetchMenuInfo();
-    }, [currentMenu]);
-
-    useEffect(() => {
         const fetchMenus = async () => {
             try {
-                // const response = await api().get('/pratos', {
-                //     params: {
-                //         date: format(currentFilters.date, 'dd/MM/yyyy'),
-                //         type: currentFilters.meal
-                //     }
-                // });
-                // setCurrentMenus(response.data);
+                const response = await api().get('/pratos', {
+                    params: {
+                        date: format(new Date(), 'dd/MM/yyyy')
+                    }
+                });
+                setAllMenus(response.data);
             } catch (e) {
                 alert(e);
             }
@@ -122,14 +104,27 @@ export default function Reports() {
         fetchMenus();
     }, []);
 
+    useEffect(() => {
+        const fetchMenuInfo = async () => {
+            try {
+                if(allMenus[currentMenu]){
+                    const response = await api().get(`/relatorio/${allMenus[currentMenu].id}`);
+                    // setMenuInfo(response.data);
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+        fetchMenuInfo();
+    }, [allMenus, currentMenu]);
+
     return (
         <div className={styles.report}>
             <Header />
             <h1 className={styles.report__title}>Relatórios</h1>
             <div className={styles.report__filter}>
-                <select value={currentMenu} onChange={e => setCurrentMenu(e.target.value)} >
-                    <option>Feijoada com Arroz</option>
-                    <option>Cuscuz Paulista</option>
+                <select value={currentMenu} onChange={e => setCurrentMenu(e.target.value)} placeholder="Selecione um cardápio">
+                    {allMenus.map((menu, idx) => <option key={idx} value={idx}>{menu.nome}</option>)}
                 </select>
             </div>
             <div className={styles.report__content}>

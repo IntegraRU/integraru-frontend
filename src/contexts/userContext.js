@@ -58,8 +58,8 @@ export function UserProvider({ children }) {
     const performRegistration = useCallback(async (userData) => {
         const response = await api().post('/user', userData);
         await performLogin({
-            username: response.data.matricula,
-            password: response.data.senha
+            username: userData.matricula,
+            password: userData.senha
         }, true);
         dispatch({ type: 'SET_LOGGED_USER', payload: response.data });
     }, [performLogin]);

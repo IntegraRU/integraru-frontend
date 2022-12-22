@@ -1,10 +1,8 @@
 import styles from "./ConfirmCheckout.module.css";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { MenuCard, Header } from "../../components";
-import { useNavigate } from "react-router-dom";
+import { Header } from "../../components";
 import { AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
 import { format } from 'date-fns'
-import { useUser } from '../../contexts/userContext';
 import api from '../../services/api';
 
 const defaultFilters = {
@@ -32,39 +30,13 @@ const filterReducer = (state = defaultFilters, action) => {
 export default function ConfirmCheckout() {
 
     const [currentFilters, dispatch] = useReducer(filterReducer, defaultFilters);
-    const [checkoutMeals, setCheckoutMeals] = useState([
-        {
-            nome: "Fulano de tal",
-            matricula: "11921111",
-            tipo: "ALMOCO"
-
-        },
-        {
-            nome: "Fulano de tal 2",
-            matricula: "11821111",
-            tipo: "ALMOCO"
-
-        },
-        {
-            nome: "Fulano de tal 3",
-            matricula: "11331111",
-            tipo: "JANTAR"
-
-        }
-    ]);
-    const navigate = useNavigate();
-    const { currentUser } = useUser();
+    const [checkoutMeals, setCheckoutMeals] = useState([]);
 
     useEffect(() => {
         const fetchCheckoutUsers = async () => {
             try {
-                // const response = await api().get('/pratos', {
-                //     params: {
-                //         date: format(currentFilters.date, 'dd/MM/yyyy'),
-                //         type: currentFilters.meal
-                //     }
-                // });
-                // setCurrentMenus(response.data);
+                const response = await api().get('/refeicoes');
+                setCheckoutMeals(response.data);
             } catch (e) {
                 alert(e);
             }
@@ -72,9 +44,18 @@ export default function ConfirmCheckout() {
         fetchCheckoutUsers();
     }, [currentFilters]);
 
-    const handleCheckout = useCallback((checkoutInfo)=> {
-        console.log(checkoutInfo);
-        // chama API
+    const handleCheckout = useCallback(async (checkoutInfo)=> {
+        try{
+            await api().put('/checkout', {
+                matriculaUser: checkoutInfo.usuarioMatricula,
+                dataCheckout: new Date(),
+                refeicaoID: checkoutInfo.refeicaoID
+            });
+            alert("Checkout confirmado!");
+            setCheckoutMeals(old => old.filter(meal => meal !== checkoutInfo));
+        } catch(e){
+            alert(e);
+        }
     }, []);
 
     return (
@@ -91,13 +72,14 @@ export default function ConfirmCheckout() {
             </div>
             <div className={styles.confirm__boxes}>
                 { checkoutMeals
-                    .filter(meal => meal.tipo === currentFilters.meal)
-                    .filter(meal => meal.matricula.startsWith(currentFilters.search) || new RegExp(`^${currentFilters.search}.*`, "gi").test(meal.nome))
+                    .filter(checkout => checkout.prato.data === format(new Date(), 'dd/MM/yyyy') && !checkout.dataCheckout)
+                    .filter(checkout => checkout.prato.modalidadePrato === currentFilters.meal)
+                    .filter(checkout => checkout.usuarioMatricula.startsWith(currentFilters.search) || new RegExp(`^${currentFilters.search}.*`, "gi").test(checkout.prato.nome))
                     .map((checkout, idx) => (
                         <div className={styles.confirm__box} key={idx}>
                             <div>
-                                <span>{checkout.nome}</span>
-                                <span className={styles.confirm__boxRegistration}>{checkout.matricula}</span>
+                                <span>{checkout.usuarioNome}</span>
+                                <span className={styles.confirm__boxRegistration}>{checkout.usuarioMatricula}</span>
                             </div>
                             <button className={styles.confirm__boxSubmit} onClick={()=>handleCheckout(checkout)}>Confirmar</button>
                         </div>))}

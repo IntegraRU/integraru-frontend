@@ -2,15 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import { slide as Menu } from "react-burger-menu";
 import { useUser } from '../../contexts/userContext';
-import { id } from "date-fns/locale";
+import {ImExit} from 'react-icons/im';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { getUserRoutes } = useUser();
+  const { getUserRoutes, performLogout, currentUser } = useUser();
 
   return (
     <>
-      <button className={styles.return} onClick={() => { navigate(-1) }}>
+      <button className={styles.return} onClick={() => { navigate((currentUser.admin ? '/admin': "") + '/inicio') }}>
         Voltar
       </button>
       <Menu
@@ -25,7 +25,8 @@ export default function Header() {
         overlayClassName={styles.overlay}
       >
         {getUserRoutes().map(route =>
-          <Link key={route.name} to={`${route.route}`}><route.icon size="2rem" /> {route.name}</Link>)}
+          <Link key={route.name} to={`/${route.route}`}><route.icon size="2rem" /> {route.name}</Link>)}
+        <button className={styles.logout} onClick={performLogout}><ImExit /> Sair</button>
       </Menu>
     </>
   );

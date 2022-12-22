@@ -12,16 +12,18 @@ body {
   font-family: Poppins, sans-serif;
   font-size: 1.6rem;
   background-color: var(--grey);
+  overflow-x: hidden;
 }
 
 :root {
   --white: #ffffff;
   --grey: #ededed;
-  --mid-grey: #dedede;
   --blue: #12aff0;
   --mid-blue: #0e86b8;
   --dark-blue: #274381;
-  --mid-grey: #dedede;
+  --light-grey: #dedede;
+  --greyer: #c9c9c9;
+  --mid-grey: #989898;
   --dark-grey: #504d4e;
   --medium-gray: #989898;
   --black: #000;

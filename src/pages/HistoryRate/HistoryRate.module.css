@@ -1,0 +1,104 @@
+.history{
+    margin: 14vh 10vw 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+
+.history__title{
+    color: var(--dark-blue);
+    font-weight: 600;
+    margin-bottom: 3vh;
+}
+
+.history__filters{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--light-grey);
+    padding: 0.8rem;
+}
+
+.history__filters > select{
+    padding: 0.2rem 1.5rem;
+    border: none;
+    background-color: var(--light-grey);
+    border-radius: 16px;
+    color: var(--dark-blue);
+    font-size: 1.4rem;
+}
+
+.history__datepicker{
+    background: none;
+    border: none;
+    max-width: 33vw;
+    font-weight: 500;
+    color: var(--dark-blue);
+}
+
+.history__datepicker::placeholder{
+    font-weight: 500;
+    color: var(--dark-blue);
+}
+
+.history__rates{
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+.history__rate{
+    display: flex;
+    background-color: var(--light-grey);
+    padding: 0.7rem;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    min-height: 25vh;
+}
+
+.history__rate > img{
+    max-width: 55%;
+}
+
+.history__rateInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    color: var(--dark-blue);
+    gap: 1rem;
+}
+
+.history__rateTitle{
+    font-weight: 700;
+}
+
+.history__rateStars{
+    display: flex;
+    gap: 0.3rem;
+    color: var(--mid-blue);
+}
+
+.history__page_buttons{
+    display: flex;
+    gap: 30vw;
+    justify-content: center;
+}
+
+.history__leftButton, .history__rightButton {
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    align-self: center;
+    margin-top: 7vh;
+}
+
+.history__leftButton:disabled, .history__rightButton:disabled {
+    background-color: var(--mid-grey);
+}
+
+.history__leftButton > svg, .history__rightButton > svg {
+    color: var(--white);
+    font-size: 3rem;
+}

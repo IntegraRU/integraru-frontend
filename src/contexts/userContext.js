@@ -75,8 +75,8 @@ export function UserProvider({ children }) {
     const getUserRoutes = useCallback(() => {
         if (!currentUser) return [];
         const userType = currentUser?.admin ? "admin" : "user";
-        const abbr = currentUser?.admin ? "admin" : "";
-        return serviceRoutes.filter((route) => route.type === userType && route.directAccess).map(route => ({...route, route: `${abbr}/${route.route}`}));
+        const abbr = currentUser?.admin ? "admin/" : "";
+        return serviceRoutes.filter((route) => route.type === userType && route.directAccess).map(route => ({...route, route: `${abbr}${route.route}`}));
     }, [currentUser]);
 
     return (

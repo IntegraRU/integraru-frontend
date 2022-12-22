@@ -14,7 +14,7 @@ export default function Checkout() {
     alert("Confirmando");
     // TODO: BACK
     navigate(-1);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className={styles.checkout}>
@@ -28,7 +28,7 @@ export default function Checkout() {
           </span>
         </div>
         <div className={styles.checkout__filters}>
-          <span id={styles.checkout__date}>{format(menuData.date, "dd/MM/yyyy")}</span>
+          <span id={styles.checkout__date}>{menuData.date}</span>
           <span id={styles.checkout__meal}>{menuData.meal}</span>
         </div>
         <div className={styles.checkout__chosenMenu}>
@@ -43,7 +43,7 @@ export default function Checkout() {
             <div id={styles.checkout__ingredients}>
               <span id={styles.checkout__}>Ingredientes</span>
               <ul>
-                {menuData.ingredients.map((ingredient, index) => {
+                {menuData.ingredients?.map((ingredient, index) => {
                   return <li key={index}>{ingredient}</li>;
                 })}
               </ul>

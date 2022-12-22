@@ -1,0 +1,97 @@
+.confirm{
+    margin: 14vh 8vw 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+
+.confirm__title{
+    color: var(--dark-blue);
+    font-weight: 600;
+    margin-bottom: 1vh;
+}
+
+.confirm__filters{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--light-grey);
+    padding-bottom: 0.8rem;
+    gap: 3vw;
+}
+
+.confirm__filters > input {
+    max-width: 67%;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2.2rem 1rem;
+}
+
+.confirm__filters > select{
+    white-space: pre-line;
+    padding: 0.2rem 1.5rem;
+    border: none;
+    background-color: var(--light-grey);
+    border-radius: 16px;
+    color: var(--dark-blue);
+    font-size: 1.4rem;
+    max-width: 33%;
+}
+
+.confirm__boxes{
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+}
+
+.confirm__box{
+    background-color: var(--light-grey);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 1rem 1.7rem;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.confirm__box > div{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7vh;
+}
+
+.confirm__boxSubmit{
+    border-radius: 16px;
+    padding: 0 1.6rem;
+    height: 3.5rem;
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.confirm__boxRegistration{
+    color: var(--mid-blue);
+}
+
+.confirm__pageButtons{
+    display: flex;
+    gap: 30vw;
+    justify-content: center;
+}
+
+.confirm__leftButton, .confirm__rightButton {
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    align-self: center;
+    margin-top: 7vh;
+}
+
+.confirm__leftButton:disabled, .confirm__rightButton:disabled {
+    background-color: var(--mid-grey);
+}
+
+.confirm__leftButton > svg, .confirm__rightButton > svg {
+    color: var(--white);
+    font-size: 3rem;
+}

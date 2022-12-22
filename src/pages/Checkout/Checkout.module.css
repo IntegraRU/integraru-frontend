@@ -20,7 +20,7 @@
 .checkout__available h2 {
     font-size: 2rem;
     margin-bottom: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .checkout__available span {
@@ -65,7 +65,14 @@
 
 .checkout__chosenMenu img {
     align-self: flex-start;
+    max-height: 120px;
     max-width: 40%;
+    border-radius: 8px;
+    border: 2px solid var(--white)
+}
+
+.checkout__menuInfo {
+    margin-left: 1.6rem;
 }
 
 .checkout__menuInfo>span:nth-child(1) {
@@ -105,7 +112,9 @@
     margin-top: 5vh;
     align-items: center;
 }
-.checkout__actionArea button:nth-child(1) {
+
+
+.checkout__actionArea #commonButton, #disableButton {
     background-color: var(--dark-blue);
     color: var(--grey);
     border-radius: 8px;
@@ -114,8 +123,45 @@
     margin-bottom: 1.6rem;
 }
 
+.checkout__actionArea #disableButton {
+    background-color: var(--greyer);
+    color: var(--dark-grey);
+}
+
 .checkout__actionArea button:nth-child(2) {
     background: none;
     color: var(--dark-blue);
 }
 
+.checkout p {
+    margin-top: 4rem;
+}
+
+.checkout p span:first-child {
+    margin-right: 0.8rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+}
+
+.checkout p span:nth-child(2) {
+    font-size: 1.6rem;
+    color: var(--mid-blue)
+}
+
+.checkout p span:nth-child(3) {
+    font-size: 2.4rem;
+    margin-left: 0.4rem;
+    color: var(--mid-blue);
+    font-weight: 500;
+}
+
+.checkout p span:last-child {
+    font-size: 1.6rem;
+    display: block;
+    color: var(--red);
+}
+
+.checkout #hidden {
+    display: none;
+}

@@ -27,7 +27,7 @@ export default function ChangeMenu() {
         const menuSubmit = async ()=>{
             try{
                 await api().request({
-                    url: '/prato',
+                    url: `/prato${previousMenu ? '/' + previousMenu.id : ''}`,
                     method: previousMenu ? 'PUT' : 'POST',
                     data: {
                         tipo: data.type,

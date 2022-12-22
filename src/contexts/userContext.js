@@ -34,7 +34,7 @@ export function UserProvider({ children }) {
                         dispatch({ type: 'RESET_USER' });
                     } else {
                         dispatch({ 
-                            type: jwtInfo.role === "ADMINISTRADOR" ? 'SET_LOGGED_ADMIN' : 'SET_LOGGED_USER', 
+                            type: jwtInfo.role === "ROLE_ADMINISTRADOR" ? 'SET_LOGGED_ADMIN' : 'SET_LOGGED_USER', 
                             payload: response.data
                         });
                     }

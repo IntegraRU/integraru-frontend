@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Meal from '../../assets/food.png';
 import format from "date-fns/format";
+import { useUser } from "../../contexts/userContext";
 
 import { Header } from "../../components";
 
 import styles from "./Checkout.module.css";
-import { useUser } from "../../contexts/userContext";
 import api from "../../services/api";
 
 export default function Checkout() {
@@ -56,24 +57,20 @@ export default function Checkout() {
         <div className={styles.checkout__available}>
           <h2>Saldo disponível</h2>
           <span>
-            R$ <span id={styles.checkout__value}>{currentUser.credito}</span>
+            R$ <span id={styles.checkout__value}>{currentUser.credito.toFixed(2).replace('.', ',')}</span>
           </span>
-        </div>
-        <div className={styles.checkout__filters}>
-          <span id={styles.checkout__date}>{menuData.data}</span>
-          <span id={styles.checkout__meal}>{capitalize(menuData.modalidadePrato)}</span>
         </div>
         <div className={styles.checkout__chosenMenu}>
           <img
             className={styles.checkout__menuImage}
-            src={menuData.urlImagem}
+            src={menuData.urlImagem || Meal}
             alt={capitalize(menuData.nome)}
           />
           <div className={styles.checkout__menuInfo}>
             <span>Menu {capitalize(menuData.tipo)}</span>
             <span>{capitalize(menuData.nome)}</span>
             <div id={styles.checkout__ingredients}>
-              <span id={styles.checkout__}>Ingredientes</span>
+              <span>Ingredientes</span>
               <ul>
                 {menuData.itens.split(', ').map((ingredient, index) => {
                   return <li key={index}>{capitalize(ingredient)}</li>;
@@ -85,7 +82,7 @@ export default function Checkout() {
         <p>
           <span>Taxa:</span>
           <span>R$</span>
-          <span>{defaultTax}</span>
+          <span>{defaultTax.toFixed(2).replace('.', ',')}</span>
           <span id={validBalance ? styles.hidden : ''}>Saldo insuficiente</span>
         </p>
         <div className={styles.checkout__actionArea}>

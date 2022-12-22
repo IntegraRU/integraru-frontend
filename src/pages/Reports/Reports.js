@@ -7,11 +7,14 @@ import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-ico
 import Meal from '../../assets/food.png';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Cell } from 'recharts'
 import { Carousel } from 'react-responsive-carousel';
-import { format } from 'date-fns'
+import { format, isAfter, isBefore, parse } from 'date-fns'
 import { useUser } from '../../contexts/userContext';
 import api from '../../services/api';
 import { useCallback } from "react";
 
+const horariosCafe = ['07:00', '07:30', '08:00', '08:30', '09:00'];
+const horariosAlmoco = ['11:30', '12:00', '12:30', '13:00', '13:30', '14:00'];
+const horariosJantar = ['17:00', '17:30', '18:00', '18:30', '19:00'];
 
 export default function Reports() {
     const [allMenus, setAllMenus] = useState([]);
@@ -64,42 +67,57 @@ export default function Reports() {
         });
         return result;
     }, [menuInfo.avaliacoesQuant]);
-
+    
     const buildDataHorarios = useCallback(()=>{
-        // TODO: Pensar em uma forma de gerar esse array abaixo. Se o array checkouts vier com as horas
-        // 11:56 e 11:45 por exemplo, as duas viram 11:30.
-        const result = [
-            {
-                time: "11:00",
-                qtd: 30
-            },
-            {
-                time: "11:30",
-                qtd: 50
-            },
-            {
-                time: "12:00",
-                qtd: 120
-            },
-            {
-                time: "12:30",
-                qtd: 150
-            },
-            {
-                time: "13:00",
-                qtd: 100
-            },
-            {
-                time: "13:30",
-                qtd: 80
-            },
-            {
-                time: "14:00",
-                qtd: 20
+        const result = [];
+        const horarios = allMenus[currentMenu].modalidadePrato === 'CAFE' ? horariosCafe :
+                         allMenus[currentMenu].modalidadePrato === 'ALMOCO' ? horariosAlmoco : horariosJantar;
+        // Dada a lista de horários e checkouts, busca a quantidade de checkouts no intervalo de 30min
+        // por exemplo, de 11:30 a 12:00 (i, i+1), pega todos os checkouts, independente do dia, entre esse horário.
+        const horariosParsed = horarios.map(horario => parse(horario, 'HH:mm', new Date()));
+        const checkouts = menuInfo.checkouts.map(horario => parse(horario, 'HH:mm', new Date()));
+        for(let i=0; i < horarios.length - 1; i++){
+            const qtd = checkouts.filter(checkout => isAfter(checkout, horariosParsed[i]) && isBefore(checkout, horariosParsed[i+1])).length;
+            result[i] = {
+                time: horarios[i],
+                qtd
             }
-        ];
+        }
+        // CASO A LÓGICA ACIMA NÃO FUNCIONE APENAS DESCOMENTAR O CODIGO ABAIXO (PLACEHOLDER)
+
+        
+        // const result = [
+        //     {
+        //         time: "11:00",
+        //         qtd: 30
+        //     },
+        //     {
+        //         time: "11:30",
+        //         qtd: 50
+        //     },
+        //     {
+        //         time: "12:00",
+        //         qtd: 120
+        //     },
+        //     {
+        //         time: "12:30",
+        //         qtd: 150
+        //     },
+        //     {
+        //         time: "13:00",
+        //         qtd: 100
+        //     },
+        //     {
+        //         time: "13:30",
+        //         qtd: 80
+        //     },
+        //     {
+        //         time: "14:00",
+        //         qtd: 20
+        //     }
+        // ];
         return result;
-    }, [menuInfo.checkouts]);
+    }, [allMenus, currentMenu, menuInfo.checkouts]);
 
     return (
         <div className={styles.report}>

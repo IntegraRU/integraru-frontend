@@ -1,14 +1,20 @@
 import styles from "./HistoryCard.module.css";
-import fullStar from "../../assets/fullStar_.png";
 import Meal from "../../assets/food.png";
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 
 export default function HistoryCard({ cardData }) {
-  const getAvaliacoes = (avaliacao) => {
-    if (!avaliacao) {
-      return <p className={styles.card__paragraph}>Não avaliado</p>;
+  const getAvaliacoes = () => {
+    if(!cardData.dataCheckout) {
+      return "Refeição não realizada";
+    } else if (!cardData.avaliacaoQuant) {
+      return "Não avaliado";
     }
-    return [...Array(avaliacao).keys()].map(() => <img src={fullStar} />);
+    return Array.from(Array(5)).map((_, i)=>((_, i+1) <= cardData.avaliacaoQuant ? <AiFillStar /> : <AiOutlineStar />));
+  };
+
+  const avaliarRefeicao = () => {
+    //TODO
   };
 
   return (
@@ -16,12 +22,14 @@ export default function HistoryCard({ cardData }) {
       <div className={styles.card__info}>
         <img className={styles.card__image} src={Meal} alt={cardData.title} />
         <div className={styles.card__cardInfo}>
-          <h1>{cardData.modalidade}</h1>
-          <h4>{cardData.data}</h4>
-          <h3>{getAvaliacoes(cardData.avaliacaoQuant)}</h3>
-          <button className={styles.card__editButton}>
-            {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
-          </button>
+          <h1>{cardData.prato.nome}</h1>
+          <h4>{cardData.prato.data}</h4>
+          <h3 className={styles.card__paragraph}>{getAvaliacoes()}</h3>
+          {cardData.dataCheckout && 
+            <button className={styles.card__editButton} onClick={avaliarRefeicao}>
+              {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
+            </button>
+          }
         </div>
       </div>
     </div>

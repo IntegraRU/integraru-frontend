@@ -1,12 +1,14 @@
 .card {
-  background-color: var(--mid-grey);
+  background-color: var(--grey);
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--grey);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   color: var(--dark-blue);
   box-sizing: border-box;
   text-align: center;
+  padding: 0.5rem;
 }
 
 .card__info {
@@ -17,19 +19,25 @@
 }
 
 .card__image {
-  width: 50%;
-  height: 100%;
+  width: 55%;
 }
 
 .card__cardInfo {
-  width: 50%;
-  height: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  gap: 1rem;
   padding: 1rem 0;
   align-items: center;
+  gap: 0.6rem;
+}
 
+.card__cardInfo > h1 {
+  font-size: 1.4rem;
+}
+
+.card__cardInfo > h4 {
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .card__editButton {
@@ -45,6 +53,7 @@
 
 .card__paragraph {
   align-self: center;
-  color: var(--medium-gray);
-  font-size: 12px;
+  color: var(--mid-blue);
+  font-weight: 400;
+  font-size: 1.1rem;
 }

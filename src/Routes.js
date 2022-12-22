@@ -1,4 +1,4 @@
-import { BiHome, BiUser } from "react-icons/bi";
+import { BiHome, BiUser, BiHistory } from "react-icons/bi";
 import { GiKnifeFork, GiMoneyStack, GiHotMeal } from "react-icons/gi";
 import { AiOutlineStar } from 'react-icons/ai';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
@@ -118,12 +118,13 @@ export const serviceRoutes = [
     component: Reports,
     type: "admin",
     directAccess: true
-  }
+  },
+  {
     name: "Histórico de refeições",
     route: "historico",
-    icon: GiKnifeFork,
+    icon: BiHistory,
     component: History,
     type: "user",
     directAccess: true,
-  },
+  }
 ];

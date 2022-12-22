@@ -21,16 +21,10 @@ export default function AddCredit() {
     const submitForm = useCallback((data) => {
         const menuSubmit = async ()=>{
             try{
-                // await api().request({
-                //     url: '/prato',
-                //     data: {
-                //         tipo: data.type,
-                //         modalidadePrato: data.meal,
-                //         nome: data.title,
-                //         itens: data.ingredients,
-                //         data: format(data.date, 'dd/MM/yyyy')
-                //     }
-                // });
+                await api().patch( `/user/${data.registration}/add-credit`, {
+                        credito: data.value
+                    }
+                );
                 reset();
             } catch(e){
                 alert(e);

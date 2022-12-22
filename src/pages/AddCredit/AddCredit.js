@@ -25,6 +25,7 @@ export default function AddCredit() {
                         credito: data.value
                     }
                 );
+                alert("Crédito adicionado!");
                 reset();
             } catch(e){
                 alert(e);

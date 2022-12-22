@@ -43,7 +43,7 @@ export default function RegisterForm() {
             }
         };
         register();
-    }, [performRegistration]);
+    }, [navigate, performRegistration]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>

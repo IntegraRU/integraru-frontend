@@ -1,0 +1,82 @@
+h1 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu {
+  margin: 14vh 10vw 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+}
+
+.menu_menu_area {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu__title {
+  color: var(--dark-blue);
+  font-weight: 600;
+  margin-bottom: 3vh;
+}
+
+.menu__menus {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.buttons_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button {
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--grey);
+  height: 60px;
+  width: 60px;
+  color: var(--dark-grey);
+}
+
+.last_button {
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--medium-gray);
+    height: 60px;
+    width: 60px;
+    color: var(--dark-grey);
+  }
+  
+  .history__page_buttons{
+    display: flex;
+    gap: 30vw;
+    justify-content: center;
+}
+
+.leftButton, .rightButton {
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    align-self: center;
+    margin-top: 7vh;
+}
+
+.leftButton:disabled, .rightButton:disabled {
+    background-color: var(--mid-grey);
+}
+
+.leftButton > svg, .rightButton > svg {
+    color: var(--white);
+    font-size: 3rem;
+}

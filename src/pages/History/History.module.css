@@ -57,3 +57,26 @@ h1 {
     color: var(--dark-grey);
   }
   
+  .history__page_buttons{
+    display: flex;
+    gap: 30vw;
+    justify-content: center;
+}
+
+.leftButton, .rightButton {
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    align-self: center;
+    margin-top: 7vh;
+}
+
+.leftButton:disabled, .rightButton:disabled {
+    background-color: var(--mid-grey);
+}
+
+.leftButton > svg, .rightButton > svg {
+    color: var(--white);
+    font-size: 3rem;
+}

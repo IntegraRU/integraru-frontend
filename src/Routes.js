@@ -78,7 +78,7 @@ export const serviceRoutes = [
     route: "historico",
     icon: GiKnifeFork,
     component: History,
-    type: 'user',
-    directAccess: true
-  }
+    type: "user",
+    directAccess: true,
+  },
 ];

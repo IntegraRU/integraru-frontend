@@ -1,8 +1,7 @@
 import styles from "./HistoryCard.module.css";
-import { BsStarFill } from "react-icons/fa";
 import fullStar from "../../assets/fullStar_.png";
-import halfEmptyStar from "../../assets/halfEmptyStar.png";
 import Meal from "../../assets/food.png";
+
 
 export default function HistoryCard({ cardData }) {
   const getAvaliacoes = (avaliacao) => {
@@ -12,23 +11,17 @@ export default function HistoryCard({ cardData }) {
     return [...Array(avaliacao).keys()].map(() => <img src={fullStar} />);
   };
 
-
-
-
-  console.log(cardData);
   return (
     <div className={styles.card}>
       <div className={styles.card__info}>
-        <img
-          className={styles.card__image}
-          src={Meal}
-          alt={cardData.title}
-        />
+        <img className={styles.card__image} src={Meal} alt={cardData.title} />
         <div className={styles.card__cardInfo}>
           <h1>{cardData.modalidade}</h1>
           <h4>{cardData.data}</h4>
           <h3>{getAvaliacoes(cardData.avaliacaoQuant)}</h3>
-          <button className={styles.card__editButton}>{!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação" }</button>
+          <button className={styles.card__editButton}>
+            {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
+          </button>
         </div>
       </div>
     </div>

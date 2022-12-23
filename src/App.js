@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Navigate,
-  Outlet,
 } from "react-router-dom";
 import UserAccess from "./pages/UserAccess";
 import { serviceRoutes } from "./Routes";

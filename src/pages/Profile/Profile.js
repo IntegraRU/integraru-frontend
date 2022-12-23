@@ -49,7 +49,7 @@ export default function Profile() {
     //TODO: Fix after backend
     performEdit()
     dispatch("SET_VIEW_MODE");
-  }, [dispatch]);
+  }, [performEdit]);
 
   return (
     <div className={styles.profile}>

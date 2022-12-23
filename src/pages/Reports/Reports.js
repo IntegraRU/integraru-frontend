@@ -57,12 +57,12 @@ export default function Reports() {
         Array.from(Array(5)).forEach(i => {
             result[i] = {
                 nota: i+1,
-                qtd: menuInfo.avaliacoesQuant.filter(a => a === i+1).length
+                qtd: menuInfo?.avaliacoesQuant.filter(a => a === i+1).length || 0
             }
             result[i].remain = menuInfo.avaliacoesQuant.length - result[i].qtd
         });
         return result;
-    }, [menuInfo.avaliacoesQuant]);
+    }, [menuInfo?.avaliacoesQuant]);
     
     const buildDataHorarios = useCallback(()=>{
         const result = [];
@@ -113,7 +113,7 @@ export default function Reports() {
         //     }
         // ];
         return result;
-    }, [allMenus, currentMenu, menuInfo.checkouts]);
+    }, [allMenus, currentMenu, menuInfo?.checkouts]);
 
     return (
         <div className={styles.report}>
@@ -215,7 +215,7 @@ export default function Reports() {
                         </div>
                     </div>
                 </div>) :
-                <p className={styles.report__empty}>Dados insuficientes para Gerar Relatório do Cardápio Selecionado</p>
+                <p className={styles.report__empty}>Dados insuficientes para <br/>Gerar Relatório do <br/>Cardápio Selecionado</p>
             }
         </div>
     );

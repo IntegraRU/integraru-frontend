@@ -107,3 +107,7 @@
 .report__commentPrev, .report__commentNext{
     font-size: 2.8rem;
 }
+
+.report__empty{
+    text-align: center;
+}

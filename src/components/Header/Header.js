@@ -3,9 +3,11 @@ import styles from "./Header.module.css";
 import { slide as Menu } from "react-burger-menu";
 import { useUser } from '../../contexts/userContext';
 import {ImExit} from 'react-icons/im';
+import { useState } from "react";
 
 export default function Header() {
   const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = useState(false);
   const { getUserRoutes, performLogout, currentUser } = useUser();
 
   return (
@@ -14,6 +16,7 @@ export default function Header() {
         Voltar
       </button>
       <Menu
+        isOpen={openMenu}
         burgerButtonClassName={styles.burger__button}
         burgerBarClassName={styles.burger__bars}
         crossClassName={styles.cross}

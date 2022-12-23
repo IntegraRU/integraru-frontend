@@ -1,0 +1,33 @@
+.modalStyle {
+  border-radius: 20px;
+  border: none;
+  color: var(--dark-blue);
+}
+
+.bodyStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.textarea {
+  margin: 8px auto;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--medium-gray);
+  color: white;
+  padding: 8px;
+}
+
+.editButton {
+  align-self: center;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 16px;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: 300;
+  font-size: 1.2rem;
+  width: 20%;
+}

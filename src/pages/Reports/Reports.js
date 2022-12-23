@@ -127,7 +127,7 @@ export default function Reports() {
             {menuInfo ? (
                 <div className={styles.report__content}>
                     <div className={styles.report__header}>
-                        <img src={Meal} alt="Refeição" />
+                        <img src={allMenus[currentMenu].urlImagem || Meal} alt="Refeição" />
                         <div className={styles.report__headerContent}>
                             <h2>{allMenus[currentMenu].nome}</h2>
                             <p className={styles.report__headerRate}>

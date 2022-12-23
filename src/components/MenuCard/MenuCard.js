@@ -16,7 +16,7 @@ export default function MenuCard({ cardData, type }) {
       <div className={styles.card__info}>
         <img
           className={styles.card__image}
-          src={Meal}
+          src={cardData.urlImagem || Meal}
           alt={cardData.nome}
         />
         <div className={styles.card__mainInfo}>

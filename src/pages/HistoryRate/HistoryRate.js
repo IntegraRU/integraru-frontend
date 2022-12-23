@@ -75,7 +75,7 @@ export default function HistoryRate() {
                     .filter(rate => rate.dataCheckout && rate.avaliacaoQuant)
                     .map((rate) => 
                     <div className={styles.history__rate} key={rate.refeicaoID}>
-                        <img src={Meal} alt="Refeição" />
+                        <img src={rate.prato.urlImagem || Meal} alt="Refeição" />
                         <div className={styles.history__rateInfo}>
                             <h2 className={styles.history__rateTitle}>{rate.prato.nome}</h2>
                             <p className={styles.history__rateDate}>{rate.prato.data}</p>

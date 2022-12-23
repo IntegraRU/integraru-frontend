@@ -2,7 +2,6 @@ import styles from "./HistoryRate.module.css";
 import React, { useEffect, useReducer, useState } from "react";
 import Meal from '../../assets/food.png';
 import { Header } from "../../components";
-import DatePicker from "react-datepicker";
 import { AiOutlineLeft, AiOutlineRight, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { format } from 'date-fns';
 import api from '../../services/api';

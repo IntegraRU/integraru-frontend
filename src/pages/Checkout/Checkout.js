@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Meal from '../../assets/food.png';
-import format from "date-fns/format";
 import { useUser } from "../../contexts/userContext";
 
 import { Header } from "../../components";

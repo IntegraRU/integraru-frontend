@@ -1,14 +1,12 @@
 import styles from "./Reports.module.css";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
-import { useNavigate } from "react-router-dom";
 import { AiFillStar } from 'react-icons/ai';
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 import Meal from '../../assets/food.png';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Cell } from 'recharts'
 import { Carousel } from 'react-responsive-carousel';
 import { format, isAfter, isBefore, parse } from 'date-fns'
-import { useUser } from '../../contexts/userContext';
 import api from '../../services/api';
 import { useCallback } from "react";
 
@@ -21,8 +19,6 @@ export default function Reports() {
     const [currentMenu, setCurrentMenu] = useState(0);
     const [currentComment, setCurrentComment] = useState(0);
     const [menuInfo, setMenuInfo] = useState();
-    const navigate = useNavigate();
-    const { currentUser } = useUser();
 
     useEffect(() => {
         const fetchMenus = async () => {

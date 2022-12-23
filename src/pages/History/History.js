@@ -3,6 +3,7 @@ import styles from "./History.module.css";
 import { Header, HistoryCard } from "../../components";
 import api from "../../services/api";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import {useUser} from '../../contexts/userContext';
 
 const defaultFilters = {
   page: 1,
@@ -22,6 +23,7 @@ const filterReducer = (state = defaultFilters, action) => {
 function History() {
   const [refeicoes, setRefeicoes] = useState([]);
   const [currentFilters, dispatch] = useReducer(filterReducer, defaultFilters);
+  const { currentUser } = useUser();
 
   useEffect(() => {
     const fetchRefeicoes = async () => {
@@ -45,7 +47,7 @@ function History() {
         {refeicoes.length === 0 ? (
           <p>Não há refeições cadastradas</p>
         ) : (
-          refeicoes.map((menu) => <HistoryCard cardData={menu} />)
+          refeicoes.filter(ref => ref.usuarioMatricula === currentUser.matricula).map((menu) => <HistoryCard cardData={menu} />)
         )}
       </div>
       <div className={styles.buttons_container}>

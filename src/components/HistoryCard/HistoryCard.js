@@ -1,37 +1,45 @@
+import { useState } from "react";
 import styles from "./HistoryCard.module.css";
 import Meal from "../../assets/food.png";
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-
+import ModalComponent from "../Modal";
+import { getAvaliacoes } from "../../util/getAvaliacao";
 
 export default function HistoryCard({ cardData }) {
-  const getAvaliacoes = () => {
-    if(!cardData.dataCheckout) {
-      return "Refeição não realizada";
-    } else if (!cardData.avaliacaoQuant) {
-      return "Não avaliado";
-    }
-    return Array.from(Array(5)).map((_, i)=>((_, i+1) <= cardData.avaliacaoQuant ? <AiFillStar /> : <AiOutlineStar />));
-  };
+  const [modalOpen, setModalOpen] = useState(false);
 
   const avaliarRefeicao = () => {
     //TODO
   };
 
   return (
-    <div className={styles.card}>
-      <div className={styles.card__info}>
-        <img className={styles.card__image} src={Meal} alt={cardData.title} />
-        <div className={styles.card__cardInfo}>
-          <h1>{cardData.prato.nome}</h1>
-          <h4>{cardData.prato.data}</h4>
-          <h3 className={styles.card__paragraph}>{getAvaliacoes()}</h3>
-          {cardData.dataCheckout && 
-            <button className={styles.card__editButton} onClick={avaliarRefeicao}>
-              {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
-            </button>
-          }
+    <>
+      {modalOpen && (
+        <ModalComponent
+          setShow={setModalOpen}
+          show={modalOpen}
+          refeicao={cardData}
+        />
+      )}
+      <div className={styles.card}>
+        <div className={styles.card__info}>
+          <img className={styles.card__image} src={cardData.prato.urlImagem} alt={cardData.title} />
+          <div className={styles.card__cardInfo}>
+            <h1>{cardData.prato.nome}</h1>
+            <h4>{cardData.prato.data}</h4>
+            <h3 className={styles.card__paragraph}>
+              {getAvaliacoes(cardData.dataCheckout, cardData.avaliacaoQuant)}
+            </h3>
+            {cardData.dataCheckout && (
+              <button
+                className={styles.card__editButton}
+                onClick={() => setModalOpen(!modalOpen)}
+              >
+                {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

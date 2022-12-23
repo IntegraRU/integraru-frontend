@@ -29,7 +29,7 @@ function History() {
     const fetchRefeicoes = async () => {
       try {
         const response = await api().get("/refeicoes");
-        setRefeicoes(response.data);
+        setRefeicoes(response.data.filter(ref => ref.usuarioMatricula === currentUser.matricula));
       } catch (e) {
         alert(e);
       }
@@ -47,7 +47,7 @@ function History() {
         {refeicoes.length === 0 ? (
           <p>Não há refeições cadastradas</p>
         ) : (
-          refeicoes.filter(ref => ref.usuarioMatricula === currentUser.matricula).map((menu) => <HistoryCard cardData={menu} />)
+          refeicoes.map((menu) => <HistoryCard cardData={menu} />)
         )}
       </div>
       <div className={styles.buttons_container}>

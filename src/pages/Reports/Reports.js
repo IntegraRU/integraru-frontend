@@ -6,7 +6,7 @@ import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-ico
 import Meal from '../../assets/food.png';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Cell } from 'recharts'
 import { Carousel } from 'react-responsive-carousel';
-import { format, isAfter, isBefore, parse } from 'date-fns'
+import { format, isAfter, isBefore, parse, parseISO } from 'date-fns'
 import api from '../../services/api';
 import { useCallback } from "react";
 
@@ -15,10 +15,10 @@ const horariosAlmoco = ['11:30', '12:00', '12:30', '13:00', '13:30', '14:00'];
 const horariosJantar = ['17:00', '17:30', '18:00', '18:30', '19:00'];
 
 export default function Reports() {
-    const [allMenus, setAllMenus] = useState([]);
+    const [allMenus, setAllMenus] = useState([{"id":1,"tipo":"COMUM","modalidadePrato":"ALMOCO","nome":"dgdg","itens":"dfgdf","urlImagem":null,"data":"23/12/2022"}]);
     const [currentMenu, setCurrentMenu] = useState(0);
     const [currentComment, setCurrentComment] = useState(0);
-    const [menuInfo, setMenuInfo] = useState();
+    const [menuInfo, setMenuInfo] = useState({"avaliacaoMedia":3.0,"avaliacoesQuant":[3],"avaliacoesComentarios":["meh"],"checkouts":["2022-12-23T12:15:22.793"],"comensais":1,"taxaAvaliacao":100.0,"taxaComentario":100.0,"taxaOptantes":100.0});
 
     useEffect(() => {
         const fetchMenus = async () => {
@@ -54,64 +54,64 @@ export default function Reports() {
         const result = [];
         // Gera um array de objetos que tem {nota: 1, qtd: 3, remain: 15}. O remain é usado para mostrar a barra cinza
         // em cima da barra de notas
-        Array.from(Array(5)).forEach(i => {
+        for(let i=0; i < 5; i++){
             result[i] = {
                 nota: i+1,
-                qtd: menuInfo?.avaliacoesQuant.filter(a => a === i+1).length || 0
+                qtd: menuInfo.avaliacoesQuant.filter(a => a === i+1).length || 0
             }
             result[i].remain = menuInfo.avaliacoesQuant.length - result[i].qtd
-        });
+        };
         return result;
     }, [menuInfo?.avaliacoesQuant]);
     
     const buildDataHorarios = useCallback(()=>{
-        const result = [];
+        // const result = [];
         const horarios = allMenus[currentMenu].modalidadePrato === 'CAFE' ? horariosCafe :
                          allMenus[currentMenu].modalidadePrato === 'ALMOCO' ? horariosAlmoco : horariosJantar;
         // Dada a lista de horários e checkouts, busca a quantidade de checkouts no intervalo de 30min
         // por exemplo, de 11:30 a 12:00 (i, i+1), pega todos os checkouts, independente do dia, entre esse horário.
         const horariosParsed = horarios.map(horario => parse(horario, 'HH:mm', new Date()));
-        const checkouts = menuInfo.checkouts.map(horario => parse(horario, 'HH:mm', new Date()));
-        for(let i=0; i < horarios.length - 1; i++){
-            const qtd = checkouts.filter(checkout => isAfter(checkout, horariosParsed[i]) && isBefore(checkout, horariosParsed[i+1])).length;
-            result[i] = {
-                time: horarios[i],
-                qtd
-            }
-        }
-        // CASO A LÓGICA ACIMA NÃO FUNCIONE APENAS DESCOMENTAR O CODIGO ABAIXO (PLACEHOLDER)
+        const checkouts = menuInfo.checkouts.map(horario => parseISO(horario));
 
-        
-        // const result = [
-        //     {
-        //         time: "11:00",
-        //         qtd: 30
-        //     },
-        //     {
-        //         time: "11:30",
-        //         qtd: 50
-        //     },
-        //     {
-        //         time: "12:00",
-        //         qtd: 120
-        //     },
-        //     {
-        //         time: "12:30",
-        //         qtd: 150
-        //     },
-        //     {
-        //         time: "13:00",
-        //         qtd: 100
-        //     },
-        //     {
-        //         time: "13:30",
-        //         qtd: 80
-        //     },
-        //     {
-        //         time: "14:00",
-        //         qtd: 20
+        // for(let i=0; i < horarios.length - 1; i++){
+        //     const qtd = checkouts.filter(checkout => isAfter(checkout, horariosParsed[i]) && isBefore(checkout, horariosParsed[i+1])).length;
+        //     result[i] = {
+        //         time: horarios[i],
+        //         qtd
         //     }
-        // ];
+        // }
+
+        //PLACEHOLDER
+        const result = [
+            {
+                time: "11:00",
+                qtd: 30
+            },
+            {
+                time: "11:30",
+                qtd: 50
+            },
+            {
+                time: "12:00",
+                qtd: 120
+            },
+            {
+                time: "12:30",
+                qtd: 150
+            },
+            {
+                time: "13:00",
+                qtd: 100
+            },
+            {
+                time: "13:30",
+                qtd: 80
+            },
+            {
+                time: "14:00",
+                qtd: 20
+            }
+        ];
         return result;
     }, [allMenus, currentMenu, menuInfo?.checkouts]);
 
@@ -180,7 +180,7 @@ export default function Reports() {
                                     tickLine={false}
                                     tick={{ stroke: 'var(--mid-blue)', strokeWidth: 0.7, fontSize: '1.1rem' }}
                                     tickMargin={13}
-                                    padding={{ left: 15, right: 15 }}
+                                    padding={{ left: 10, right: 10 }}
                                 />
                                 <Bar dataKey="qtd" fill="var(--mid-blue)" barSize={10} radius={[4, 4, 0, 0]}>
                                     {

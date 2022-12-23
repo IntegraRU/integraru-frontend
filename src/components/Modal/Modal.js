@@ -40,7 +40,6 @@ function ModalComponent({ show, setShow, refeicao }) {
 
       <Modal
         show={show}
-        onHide={handleClose}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered

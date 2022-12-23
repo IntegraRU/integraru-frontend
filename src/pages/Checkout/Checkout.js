@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Meal from '../../assets/food.png';
 import { useUser } from "../../contexts/userContext";
@@ -34,7 +34,7 @@ export default function Checkout() {
             data: menuData.data
           }
         }).then(() => {
-          navigate(-1);
+          window.location.reload();
         })
       } catch (err) {
         return false;
@@ -42,7 +42,7 @@ export default function Checkout() {
     }
     confirm();
   }
-  }, [])
+  }, [currentUser, menuData, navigate, validBalance])
 
   const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();

@@ -69,7 +69,12 @@ export function UserProvider({ children }) {
     }, []);
 
     const performEdit = useCallback(async (userNewData) => {
-
+        const response = await api().patch('/user', {
+            email: userNewData.email,
+            nome: userNewData.name,
+            telefone: userNewData.phone   
+        });
+        dispatch({ type: 'SET_LOGGED_USER', payload: response.data });
     }, []);
 
     const getUserRoutes = useCallback(() => {

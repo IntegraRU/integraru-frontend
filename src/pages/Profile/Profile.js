@@ -46,8 +46,7 @@ export default function Profile() {
   });
 
   const submitNewProfile = useCallback((data) => {
-    //TODO: Fix after backend
-    performEdit()
+    performEdit(data)
     dispatch("SET_VIEW_MODE");
   }, [performEdit]);
 

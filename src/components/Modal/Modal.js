@@ -3,15 +3,16 @@ import Modal from "react-bootstrap/Modal";
 import styles from "./Modal.module.css";
 import { getAvaliacoes } from "../../util/getAvaliacao";
 import api from "../../services/api";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 function ModalComponent({ show, setShow, refeicao }) {
-  console.log(refeicao);
   const handleShow = () => setShow(true);
+  const [stars, setStars] = useState(refeicao.avaliacaoQuant || 0);
   const [avaliacaoComentario, setAvaliacaoComentario] = useState("");
 
   useEffect(() => {
     setAvaliacaoComentario(refeicao.avaliacaoComentario);
-  }, []);
+  }, [refeicao.avaliacaoComentario]);
 
   const handleChange = (event) => {
     setAvaliacaoComentario(event.target.value);
@@ -20,13 +21,11 @@ function ModalComponent({ show, setShow, refeicao }) {
   const handleClose = () => {
     const putRefeicao = async () => {
       try {
-        const response = await api().get(`/refeicao/${refeicao.refeicaoID}`, {
-          method: "put",
-          data: {
-            avaliacaoQuantitativa: refeicao.avaliacaoQuant,
+        const response = await api().put(`/refeicao/${refeicao.refeicaoID}`, {
+            avaliacaoQuantitativa: stars || 1,
             avaliacaoComentario: avaliacaoComentario,
-          },
         });
+        alert('Avaliação feita!');
       } catch (e) {
         alert(e);
       }
@@ -49,13 +48,15 @@ function ModalComponent({ show, setShow, refeicao }) {
         className={styles.modalStyle}
       >
         <div className={styles.modalStyle}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton className={styles.headerStyle}>
             <Modal.Title className={styles.title}>Avaliação</Modal.Title>
           </Modal.Header>
-          <div className={styles.bodyStyle}>
-            <p>
-              {getAvaliacoes(refeicao.dataCheckout, refeicao.avaliacaoQuant)}
+          <Modal.Body className={styles.bodyStyle}>
+            <p className={styles.stars}>
+              {Array.from(Array(stars)).map((_, i) => <AiFillStar onClick={()=>setStars(i+1)} />)}
+              {Array.from(Array(5-stars)).map((_, i) => <AiOutlineStar onClick={()=>setStars(stars + i+1)} />)}
             </p>
+            <h2>Comentário</h2>
             <textarea
               className={styles.textarea}
               value={avaliacaoComentario}
@@ -68,7 +69,7 @@ function ModalComponent({ show, setShow, refeicao }) {
             >
               Salvar
             </button>
-          </div>
+          </Modal.Body>
         </div>
       </Modal>
     </>

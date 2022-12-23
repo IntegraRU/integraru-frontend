@@ -66,6 +66,7 @@ export default function ChangeMenu() {
                         )}
                     />
                     <select defaultValue={previousMenu && previousMenu.modalidadePrato} {...register('meal')} >
+                        <option value="CAFE">Café da Manhã</option>
                         <option value="ALMOCO">Almoço</option>
                         <option value="JANTAR">Jantar</option>
                     </select>

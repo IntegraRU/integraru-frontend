@@ -5,8 +5,9 @@ import { getAvaliacoes } from "../../util/getAvaliacao";
 import api from "../../services/api";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-function ModalComponent({ show, setShow, refeicao }) {
+function ModalComponent({ show, setShow, refeicao: refeicaoInicio }) {
   const handleShow = () => setShow(true);
+  const [refeicao, setRefeicao] = useState(refeicaoInicio);
   const [stars, setStars] = useState(refeicao.avaliacaoQuant || 0);
   const [avaliacaoComentario, setAvaliacaoComentario] = useState("");
 
@@ -26,6 +27,7 @@ function ModalComponent({ show, setShow, refeicao }) {
             avaliacaoComentario: avaliacaoComentario,
         });
         alert('Avaliação feita!');
+        setRefeicao(response.data);
       } catch (e) {
         alert(e);
       }
@@ -40,6 +42,8 @@ function ModalComponent({ show, setShow, refeicao }) {
 
       <Modal
         show={show}
+        onBackdropClick={()=>setShow(false)}
+        onHide={()=>setShow(false)}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered

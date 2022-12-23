@@ -22,7 +22,7 @@ export default function HistoryCard({ cardData }) {
       )}
       <div className={styles.card}>
         <div className={styles.card__info}>
-          <img className={styles.card__image} src={Meal} alt={cardData.title} />
+          <img className={styles.card__image} src={cardData.prato.urlImagem} alt={cardData.title} />
           <div className={styles.card__cardInfo}>
             <h1>{cardData.prato.nome}</h1>
             <h4>{cardData.prato.data}</h4>

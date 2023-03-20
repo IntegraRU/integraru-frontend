@@ -1,5 +1,5 @@
 import styles from "./ChangeMenu.module.css";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {Header} from "../../components";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,23 +9,34 @@ import DatePicker from "react-datepicker";
 import {AiOutlineCloudUpload, AiOutlineClose, AiOutlineCheck} from 'react-icons/ai';
 import api from "../../services/api";
 import { format, parse } from "date-fns";
+import storage from '../../services/firebase';
+import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { CircularProgress } from "@mui/material";
 
 const registerSchema = yup.object({
     title: yup.string().required('Título é obrigatório!'),
-    image: yup.mixed().test("fileType", "Formato da imagem inválido", file => !file.length || ['jpg', 'png', 'jpeg'].includes(file.type)),
     ingredients: yup.string().required('Ingredientes são obrigatórios')
 }).required();
 
 export default function ChangeMenu() {
-    const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, reset, watch, formState: { errors } } = useForm({
         resolver: yupResolver(registerSchema)
     });
     const { state: previousMenu } = useLocation();
+    const currentImage = watch('image');
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const submitForm = useCallback((data) => {
+        setIsLoading(true);
         const menuSubmit = async ()=>{
             try{
+                let imgUrl = undefined;
+                if(data.image[0]){
+                    const storageRef = ref(storage, `files/${data.image[0].name}`);
+                    const uploadTask = uploadBytesResumable(storageRef, data.image[0]);
+                    imgUrl = await uploadTask.then(uploadedTask => getDownloadURL(uploadedTask.ref));
+                }
                 await api().request({
                     url: `/prato${previousMenu ? '/' + previousMenu.id : ''}`,
                     method: previousMenu ? 'PUT' : 'POST',
@@ -34,9 +45,11 @@ export default function ChangeMenu() {
                         modalidadePrato: data.meal,
                         nome: data.title,
                         itens: data.ingredients,
-                        data: format(data.date, 'dd/MM/yyyy')
+                        data: format(data.date, 'dd/MM/yyyy'),
+                        urlImagem: imgUrl
                     }
                 });
+                setIsLoading(false);
                 navigate('/admin/cardapio');
             } catch(e){
                 alert(e);
@@ -47,6 +60,12 @@ export default function ChangeMenu() {
 
     return (
         <div className={styles.menu}>
+            {
+                isLoading && 
+                <div className={styles.menu__loading}>
+                    <CircularProgress size={60} />
+                </div>
+            }
             <Header />
             <h1 className={styles.menu__title}>{previousMenu ? 'Editar cardápio' : 'Adicionar cardápio'}</h1>
             <form className={styles.menu__form} onSubmit={handleSubmit(submitForm)}>
@@ -65,7 +84,7 @@ export default function ChangeMenu() {
                             />
                         )}
                     />
-                    <select defaultValue={previousMenu && previousMenu.modalidadePrato} {...register('meal')} >
+                    <select defaultValue={(previousMenu && previousMenu.modalidadePrato) || "ALMOCO"} {...register('meal')} >
                         <option value="CAFE">Café da Manhã</option>
                         <option value="ALMOCO">Almoço</option>
                         <option value="JANTAR">Jantar</option>
@@ -73,7 +92,12 @@ export default function ChangeMenu() {
                 </div>
                 <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>
                     <p className={styles.menu__form__file__title}>Imagem</p>
-                    <label htmlFor="meal-photo"><AiOutlineCloudUpload /></label>
+                    <label htmlFor="meal-photo">
+                        {currentImage && currentImage.length 
+                        ? <img src={window.URL.createObjectURL(currentImage[0])} alt={currentImage[0].name} />
+                        : <AiOutlineCloudUpload />
+                        }
+                    </label>
                     <input type={'file'} accept="image/*" id="meal-photo" {...register('image')} />
                     <p className={styles.menu__form__error}>{errors.file?.message}</p>
                 </div>

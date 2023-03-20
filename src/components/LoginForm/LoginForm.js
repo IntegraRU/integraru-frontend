@@ -34,7 +34,7 @@ export default function LoginForm({ changeForm }) {
                 );
                 navigate(0)
             } catch(e) {
-                alert(e);
+                alert("Usuário ou senha incorretas!");
             }
         };
         login();

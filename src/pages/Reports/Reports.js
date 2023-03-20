@@ -15,11 +15,10 @@ const horariosAlmoco = ['11:30', '12:00', '12:30', '13:00', '13:30', '14:00'];
 const horariosJantar = ['17:00', '17:30', '18:00', '18:30', '19:00'];
 
 export default function Reports() {
-    const [allMenus, setAllMenus] = useState([{"id":1,"tipo":"COMUM","modalidadePrato":"ALMOCO","nome":"dgdg","itens":"dfgdf","urlImagem":null,"data":"23/12/2022"}]);
+    const [allMenus, setAllMenus] = useState([{"id":1,"tipo":"COMUM","modalidadePrato":"ALMOCO","nome":"dgdg","itens":"dfgdf","urlImagem":"https://assets.unileversolutions.com/recipes-v2/54349.jpg","data":"23/12/2022"}]);
     const [currentMenu, setCurrentMenu] = useState(0);
     const [currentComment, setCurrentComment] = useState(0);
     const [menuInfo, setMenuInfo] = useState({"avaliacaoMedia":3.0,"avaliacoesQuant":[3],"avaliacoesComentarios":["meh"],"checkouts":["2022-12-23T12:15:22.793"],"comensais":1,"taxaAvaliacao":100.0,"taxaComentario":100.0,"taxaOptantes":100.0});
-
     useEffect(() => {
         const fetchMenus = async () => {
             try {
@@ -28,7 +27,7 @@ export default function Reports() {
                         date: format(new Date(), 'dd/MM/yyyy')
                     }
                 });
-                setAllMenus(response.data);
+                if(response.data != []) setAllMenus(response.data);
             } catch (e) {
                 alert(e);
             }
@@ -41,7 +40,7 @@ export default function Reports() {
             try {
                 if (allMenus[currentMenu]) {
                     const response = await api().get(`/relatorio/${allMenus[currentMenu].id}`);
-                    if (response.data) setMenuInfo(response.data);
+                    // setMenuInfo(response.data);
                 }
             } catch (e) {
                 alert(e);

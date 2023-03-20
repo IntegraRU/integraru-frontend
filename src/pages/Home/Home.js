@@ -3,6 +3,7 @@ import {useUser} from "../../contexts/userContext";
 import { GiMoneyStack } from 'react-icons/gi';
 
 import styles from "./Home.module.css";
+import { Header } from "../../components";
 
 export default function Home() {
 
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <div className={styles.home__container}>
       <header>
+        <Header />
         <h1>{`Olá, ${currentUser.nome}!`}</h1>
         {currentUser.admin ? 
           <></> :

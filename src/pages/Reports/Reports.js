@@ -15,19 +15,17 @@ const horariosAlmoco = ['11:30', '12:00', '12:30', '13:00', '13:30', '14:00'];
 const horariosJantar = ['17:00', '17:30', '18:00', '18:30', '19:00'];
 
 export default function Reports() {
-    const [allMenus, setAllMenus] = useState([{"id":1,"tipo":"COMUM","modalidadePrato":"ALMOCO","nome":"dgdg","itens":"dfgdf","urlImagem":"https://assets.unileversolutions.com/recipes-v2/54349.jpg","data":"23/12/2022"}]);
+    // const [allMenus, setAllMenus] = useState([{"id":1,"tipo":"COMUM","modalidadePrato":"ALMOCO","nome":"dgdg","itens":"dfgdf","urlImagem":"https://assets.unileversolutions.com/recipes-v2/54349.jpg","data":"23/12/2022"}]);
+    const [allMenus, setAllMenus] = useState([]);
     const [currentMenu, setCurrentMenu] = useState(0);
     const [currentComment, setCurrentComment] = useState(0);
-    const [menuInfo, setMenuInfo] = useState({"avaliacaoMedia":3.0,"avaliacoesQuant":[3],"avaliacoesComentarios":["meh"],"checkouts":["2022-12-23T12:15:22.793"],"comensais":1,"taxaAvaliacao":100.0,"taxaComentario":100.0,"taxaOptantes":100.0});
+    // const [menuInfo, setMenuInfo] = useState({"avaliacaoMedia":3.0,"avaliacoesQuant":[3],"avaliacoesComentarios":["meh"],"checkouts":["2022-12-23T12:15:22.793"],"comensais":1,"taxaAvaliacao":100.0,"taxaComentario":100.0,"taxaOptantes":100.0});
+    const [menuInfo, setMenuInfo] = useState();
     useEffect(() => {
         const fetchMenus = async () => {
             try {
-                const response = await api().get('/pratos', {
-                    params: {
-                        date: format(new Date(), 'dd/MM/yyyy')
-                    }
-                });
-                if(response.data != []) setAllMenus(response.data);
+                const response = await api().get('/pratos');
+                setAllMenus(response.data);
             } catch (e) {
                 alert(e);
             }
@@ -38,9 +36,9 @@ export default function Reports() {
     useEffect(() => {
         const fetchMenuInfo = async () => {
             try {
-                if (allMenus[currentMenu]) {
+                if (currentMenu <= allMenus.length - 1) {
                     const response = await api().get(`/relatorio/${allMenus[currentMenu].id}`);
-                    // setMenuInfo(response.data);
+                    setMenuInfo(response.data);
                 }
             } catch (e) {
                 alert(e);
@@ -64,7 +62,7 @@ export default function Reports() {
     }, [menuInfo?.avaliacoesQuant]);
     
     const buildDataHorarios = useCallback(()=>{
-        // const result = [];
+        const result = [];
         const horarios = allMenus[currentMenu].modalidadePrato === 'CAFE' ? horariosCafe :
                          allMenus[currentMenu].modalidadePrato === 'ALMOCO' ? horariosAlmoco : horariosJantar;
         // Dada a lista de horários e checkouts, busca a quantidade de checkouts no intervalo de 30min
@@ -72,45 +70,45 @@ export default function Reports() {
         const horariosParsed = horarios.map(horario => parse(horario, 'HH:mm', new Date()));
         const checkouts = menuInfo.checkouts.map(horario => parseISO(horario));
 
-        // for(let i=0; i < horarios.length - 1; i++){
-        //     const qtd = checkouts.filter(checkout => isAfter(checkout, horariosParsed[i]) && isBefore(checkout, horariosParsed[i+1])).length;
-        //     result[i] = {
-        //         time: horarios[i],
-        //         qtd
-        //     }
-        // }
+        for(let i=0; i < horarios.length - 1; i++){
+            const qtd = checkouts.filter(checkout => isAfter(checkout, horariosParsed[i]) && isBefore(checkout, horariosParsed[i+1])).length;
+            result[i] = {
+                time: horarios[i],
+                qtd
+            }
+        }
 
         //PLACEHOLDER
-        const result = [
-            {
-                time: "11:00",
-                qtd: 30
-            },
-            {
-                time: "11:30",
-                qtd: 50
-            },
-            {
-                time: "12:00",
-                qtd: 120
-            },
-            {
-                time: "12:30",
-                qtd: 150
-            },
-            {
-                time: "13:00",
-                qtd: 100
-            },
-            {
-                time: "13:30",
-                qtd: 80
-            },
-            {
-                time: "14:00",
-                qtd: 20
-            }
-        ];
+        // const result = [
+        //     {
+        //         time: "11:00",
+        //         qtd: 30
+        //     },
+        //     {
+        //         time: "11:30",
+        //         qtd: 50
+        //     },
+        //     {
+        //         time: "12:00",
+        //         qtd: 120
+        //     },
+        //     {
+        //         time: "12:30",
+        //         qtd: 150
+        //     },
+        //     {
+        //         time: "13:00",
+        //         qtd: 100
+        //     },
+        //     {
+        //         time: "13:30",
+        //         qtd: 80
+        //     },
+        //     {
+        //         time: "14:00",
+        //         qtd: 20
+        //     }
+        // ];
         return result;
     }, [allMenus, currentMenu, menuInfo?.checkouts]);
 

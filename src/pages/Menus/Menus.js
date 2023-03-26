@@ -1,10 +1,10 @@
 import styles from "./Menus.module.css";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useCallback } from "react";
 import { MenuCard, Header } from "../../components";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from 'react-icons/ai';
-import { format } from 'date-fns'
+import { addDays, format, isAfter, startOfDay, subDays } from 'date-fns'
 import { useUser } from '../../contexts/userContext';
 import api from '../../services/api';
 
@@ -23,7 +23,6 @@ const filterReducer = (state = defaultFilters, action) => {
             return state;
     }
 };
-
 
 export default function Menus() {
 
@@ -49,6 +48,39 @@ export default function Menus() {
         fetchPratos();
     }, [currentFilters]);
 
+    const shouldShowDate = useCallback((date) => {
+        const tomorrow = startOfDay(addDays(new Date(), 1));
+        if(date >= tomorrow){
+            return true;
+        } else {
+            if((new Date()).getHours() < 19) return true;
+        }
+        return false;
+    }, []);
+
+    useEffect(()=>{
+        if(!shouldShowDate(new Date())){
+            const tomorrow = startOfDay(addDays(new Date(), 1));
+            dispatch({ type: 'SET_MENU_DATE', payload: tomorrow });
+        }
+    }, [shouldShowDate]);
+
+    const shouldShowMeal = useCallback((which) => {
+        const today = startOfDay(new Date());
+        if(today.getTime() == startOfDay(currentFilters.date).getTime()){
+            switch(which){
+                case 'breakfast':
+                    today.setHours(9);
+                    if(isAfter(currentFilters.date, today)) return false;
+                    break;
+                default:
+                    today.setHours(14);
+                    if(isAfter(currentFilters.date, today)) return false;
+            }
+        }
+        return true;
+    }, [currentFilters.date]);
+
     return (
         <div className={styles.menus}>
             <Header />
@@ -59,11 +91,12 @@ export default function Menus() {
                     onChange={(date) => dispatch({ type: 'SET_MENU_DATE', payload: date })}
                     className={styles.menus__datepicker}
                     dateFormat="dd/MM/yyyy"
+                    filterDate={date => shouldShowDate(date) }
                     locale='pt-BR'
                 />
                 <select value={currentFilters.meal} onChange={e => dispatch({ type: 'SET_MENU_MEAL', payload: e.target.value })} >
-                    <option value='CAFE'>Café da manhã</option>
-                    <option value='ALMOCO'>Almoço</option>
+                    { shouldShowMeal('breakfast') && <option value='CAFE'>Café da manhã</option>}
+                    { shouldShowMeal('lunch') && <option value='ALMOCO'>Almoço</option> }
                     <option value='JANTAR'>Jantar</option>
                 </select>
             </div>

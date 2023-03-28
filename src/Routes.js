@@ -2,6 +2,7 @@ import { BiHome, BiUser, BiHistory } from "react-icons/bi";
 import { GiKnifeFork, GiMoneyStack, GiHotMeal } from "react-icons/gi";
 import { AiOutlineStar } from 'react-icons/ai';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
+import { FaRegIdCard } from 'react-icons/fa';
 
 import Home from "./pages/Home";
 import Menus from "./pages/Menus";
@@ -10,6 +11,7 @@ import Profile from "./pages/Profile";
 import History from "./pages/History";
 import Checkout from "./pages/Checkout";
 import AddCredit from "./pages/AddCredit";
+import Registration from "./pages/Registration";
 import HistoryRate from "./pages/HistoryRate";
 import ConfirmCheckout from './pages/ConfirmCheckout';
 import Reports from './pages/Reports';
@@ -125,6 +127,14 @@ export const serviceRoutes = [
     icon: BiHistory,
     component: History,
     type: "user",
+    directAccess: true,
+  },
+  {
+    name: "Modificar beneficiários",
+    route: "beneficiario",
+    icon: FaRegIdCard,
+    component: Registration,
+    type: "admin",
     directAccess: true,
   }
 ];

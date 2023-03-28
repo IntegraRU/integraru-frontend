@@ -52,7 +52,7 @@ export default function Menus() {
         const tomorrow = startOfDay(addDays(new Date(), 1));
         if(date >= tomorrow){
             return true;
-        } else {
+        } else if(date >= startOfDay(new Date())){
             if((new Date()).getHours() < 19) return true;
         }
         return false;

@@ -61,7 +61,7 @@ export default function ConfirmCheckout() {
     return (
         <div className={styles.confirm}>
             <Header />
-            <h1 className={styles.confirm__title}>Confirmar Refeição</h1>
+            <h1 className={styles.confirm__title}>Confirmar Refeição do Dia Atual</h1>
             <div className={styles.confirm__filters}>
                 <input value={currentFilters.search} onChange={e => dispatch({ type: 'SET_SEARCH', payload: e.target.value })} placeholder="Pesquisar" />
                 <select value={currentFilters.meal} onChange={e => dispatch({ type: 'SET_MEAL', payload: e.target.value })} >

@@ -4,13 +4,13 @@ import { MenuCard, Header } from "../../components";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from 'react-icons/ai';
-import { addDays, format, isAfter, startOfDay, subDays } from 'date-fns'
+import { addDays, format, isAfter, startOfDay } from 'date-fns'
 import { useUser } from '../../contexts/userContext';
 import api from '../../services/api';
 
 const defaultFilters = {
     date: new Date(),
-    meal: "ALMOCO"
+    meal: "JANTAR"
 }
 
 const filterReducer = (state = defaultFilters, action) => {

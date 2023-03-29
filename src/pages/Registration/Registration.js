@@ -29,23 +29,29 @@ export default function Registration() {
             }
         };
         registrationsSearch();
-    }, []);
+    }, [currentOperation]);
 
     const submitForm = useCallback((data) => {
-        console.log(data);
         const menuSubmit = async ()=>{
             try{
-                await api().patch( `/user/${data.registration}/add-registration`, {
-                        registrationo: data.value
-                    }
-                );
-                alert("Crédito adicionado!");
+                if(data.operation === 'ADD'){
+                    await api().post( `/matricula`, {
+                        matricula: data.registration,
+                        beneficiario: true
+                    });
+                    alert("Beneficiário adicionado!");
+                } else {
+                    await api().patch( `/matricula/${data.registrationToRemove.value}`, {
+                        beneficiario: false
+                    });
+                    alert("Beneficiário removido!");
+                }
                 reset();
             } catch(e){
                 alert(e);
             }
         };
-        // menuSubmit();
+        menuSubmit();
     }, [reset]);
 
     return (
@@ -71,7 +77,7 @@ export default function Registration() {
                         <p className={styles.registration__form__error}>{errors.registration?.message}</p>
                     </div> ) : (
                     <div className={styles.registration__form__field}>
-                        <label>Matrículas beneficiadas</label>
+                        <label>Matrícula beneficiada</label>
                         <Controller
                             name="registrationToRemove"
                             control={control}

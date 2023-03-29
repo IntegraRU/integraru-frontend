@@ -35,10 +35,16 @@ export default function Registration() {
         const menuSubmit = async ()=>{
             try{
                 if(data.operation === 'ADD'){
-                    await api().post( `/matricula`, {
-                        matricula: data.registration,
-                        beneficiario: true
-                    });
+                    if(allRegistrations.find(r => r.matricula == data.registration)){
+                        await api().patch( `/matricula/${data.registration}`, {
+                            beneficiario: true
+                        });
+                    } else {
+                        await api().post( `/matricula`, {
+                            matricula: data.registration,
+                            beneficiario: true
+                        });
+                    }
                     alert("Beneficiário adicionado!");
                 } else {
                     await api().patch( `/matricula/${data.registrationToRemove.value}`, {
@@ -52,7 +58,7 @@ export default function Registration() {
             }
         };
         menuSubmit();
-    }, [reset]);
+    }, [allRegistrations, reset]);
 
     return (
         <div className={styles.registration}>
@@ -90,7 +96,7 @@ export default function Registration() {
                                     placeholder="Selecione uma matrícula" 
                                     noOptionsMessage={(_) => "Sem matrículas a mostrar"}
                                     options={allRegistrations
-                                                // .filter(r => r.beneficiario && r.role.authority !== "ROLE_ADMINISTRADOR")
+                                                .filter(r => r.beneficiario && r.role.authority !== "ROLE_ADMINISTRADOR")
                                                 .map(r => ({value: r.matricula, label: r.matricula}))}
                                     onChange={onChange}
                                     value={value}

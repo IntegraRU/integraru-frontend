@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import {AiOutlineCloudUpload, AiOutlineClose, AiOutlineCheck} from 'react-icons/ai';
 import api from "../../services/api";
-import { format, parse } from "date-fns";
+import { format, parse, startOfDay, addDays, isAfter } from "date-fns";
 import storage from '../../services/firebase';
 import {ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { CircularProgress } from "@mui/material";
@@ -24,8 +24,45 @@ export default function ChangeMenu() {
     });
     const { state: previousMenu } = useLocation();
     const currentImage = watch('image');
+    const currentDate = watch('date');
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+
+    const shouldShowDate = useCallback((date) => {
+        const tomorrow = startOfDay(addDays(new Date(), 1));
+        if(date >= tomorrow){
+            return true;
+        } else if(date >= startOfDay(new Date())){
+            if((new Date()).getHours() < 19) return true;
+        }
+        return false;
+    }, []);
+
+    const initialDate = useCallback(()=>{
+        let initialDate = new Date();
+        if(previousMenu && previousMenu.data) initialDate = parse(previousMenu.data, 'dd/MM/yyyy', new Date());
+        else if(!shouldShowDate(new Date())) {
+            const tomorrow = startOfDay(addDays(new Date(), 1));
+            initialDate = tomorrow;
+        }
+        return initialDate;
+    }, [previousMenu, shouldShowDate]);
+
+    const shouldShowMeal = useCallback((which) => {
+        const today = startOfDay(new Date());
+        if(today.getTime() == startOfDay(currentDate).getTime()){
+            switch(which){
+                case 'breakfast':
+                    today.setHours(9);
+                    if(isAfter(currentDate, today)) return false;
+                    break;
+                default:
+                    today.setHours(14);
+                    if(isAfter(currentDate, today)) return false;
+            }
+        }
+        return true;
+    }, [currentDate]);
 
     const submitForm = useCallback((data) => {
         setIsLoading(true);
@@ -73,21 +110,22 @@ export default function ChangeMenu() {
                     <Controller
                         name="date"
                         control={control}
-                        defaultValue={previousMenu && previousMenu.data ? parse(previousMenu.data, 'dd/MM/yyyy', new Date()) : new Date()}
+                        defaultValue={initialDate()}
                         render={({ field: { onChange, value } }) => (
                             <DatePicker
                                 selected={value}
                                 onChange={onChange}
                                 className={styles.menu__datepicker}
                                 dateFormat="dd/MM/yyyy"
+                                filterDate={date => shouldShowDate(date) }
                                 locale='pt-BR'
                             />
                         )}
                     />
                     <select defaultValue={(previousMenu && previousMenu.modalidadePrato) || "ALMOCO"} {...register('meal')} >
-                        <option value="CAFE">Café da Manhã</option>
-                        <option value="ALMOCO">Almoço</option>
-                        <option value="JANTAR">Jantar</option>
+                        { shouldShowMeal('breakfast') && <option value='CAFE'>Café da manhã</option>}
+                        { shouldShowMeal('lunch') && <option value='ALMOCO'>Almoço</option> }
+                        <option value='JANTAR'>Jantar</option>
                     </select>
                 </div>
                 <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>

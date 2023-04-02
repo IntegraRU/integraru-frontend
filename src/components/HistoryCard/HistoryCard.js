@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./HistoryCard.module.css";
 import Meal from "../../assets/food.png";
 import ModalComponent from "../Modal";
+import api from "../../services/api";
 import { getAvaliacoes } from "../../util/getAvaliacao";
 
 export default function HistoryCard({ cardData }) {
   const [modalOpen, setModalOpen] = useState(false);
+
+  const removeCheckout = useCallback(()=>{
+      const removeRequest = async () => {
+        try {
+          await api().delete(`/refeicao/${cardData.refeicaoID}`);
+          window.location.reload();
+        } catch (err) {
+          alert("Não foi possível cancelar a reserva");
+        }
+      }
+      removeRequest();
+  }, [cardData.refeicaoID]);
 
   return (
     <>
@@ -25,12 +38,19 @@ export default function HistoryCard({ cardData }) {
             <h3 className={styles.card__paragraph}>
               {getAvaliacoes(cardData.dataCheckout, cardData.avaliacaoQuant)}
             </h3>
-            {cardData.dataCheckout && (
+            {cardData.dataCheckout ? (
               <button
                 className={styles.card__editButton}
                 onClick={() => setModalOpen(!modalOpen)}
               >
                 {!cardData.avaliacaoQuant ? "Avaliar" : "Alterar Avaliação"}
+              </button>
+            ) : (
+              <button
+                className={styles.card__removeCheckout}
+                onClick={removeCheckout}
+              >
+                Cancelar Reserva
               </button>
             )}
           </div>

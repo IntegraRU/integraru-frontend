@@ -5,16 +5,16 @@ import { useUser } from '../../contexts/userContext';
 import {ImExit} from 'react-icons/im';
 import { useState } from "react";
 
-export default function Header() {
+export default function Header({ hideReturn }) {
   const navigate = useNavigate();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu] = useState(false);
   const { getUserRoutes, performLogout, currentUser } = useUser();
 
   return (
     <>
-      <button className={styles.return} onClick={() => { navigate((currentUser.admin ? '/admin': "") + '/inicio') }}>
+      {!hideReturn && <button className={styles.return} onClick={() => { navigate((currentUser.admin ? '/admin': "") + '/inicio') }}>
         Voltar
-      </button>
+      </button>}
       <Menu
         isOpen={openMenu}
         burgerButtonClassName={styles.burger__button}

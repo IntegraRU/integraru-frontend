@@ -89,7 +89,7 @@ export default function HistoryRate() {
                 <button className={styles.history__leftButton} onClick={() => dispatch({type: "DECREASE_PAGE"})} disabled={currentFilters.page === 1}>
                     <AiOutlineLeft />
                 </button>
-                <button className={styles.history__rightButton} onClick={() => dispatch({type: "INCREASE_PAGE"})} disabled={currentFilters.page === Math.ceil(currentRates.length / 4)}>
+                <button className={styles.history__rightButton} onClick={() => dispatch({type: "INCREASE_PAGE"})} disabled={!currentRates.length || currentFilters.page === Math.ceil(currentRates.length / 4)}>
                     <AiOutlineRight />
                 </button>
             </div>

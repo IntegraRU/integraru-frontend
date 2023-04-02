@@ -19,14 +19,14 @@
 }
 
 .card__image {
-  width: 55%;
+  width: 50%;
 }
 
 .card__cardInfo {
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1rem 0.5rem;
   align-items: center;
   gap: 0.6rem;
 }
@@ -40,7 +40,7 @@
   font-weight: 400;
 }
 
-.card__editButton {
+.card__editButton, .card__removeCheckout  {
   align-self: center;
   padding: 0.8rem 1.8rem;
   border-radius: 16px;
@@ -48,7 +48,7 @@
   color: var(--white);
   font-weight: 300;
   font-size: 1.2rem;
-  width: 96%;
+  width: 90%;
 }
 
 .card__paragraph {

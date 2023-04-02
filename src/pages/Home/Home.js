@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className={styles.home__container}>
       <header>
-        <Header />
+        <Header hideReturn={true} />
         <h1>{`Olá, ${currentUser.nome}!`}</h1>
         {currentUser.admin ? 
           <></> :

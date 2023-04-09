@@ -54,3 +54,12 @@
     color: var(--white);
     font-size: 3rem;
 }
+
+@media (min-width: 1025px) {
+    .menus__filters{
+        display: flex;
+        border-bottom: 2px solid var(--light-grey);
+        width: 60%;
+        margin: auto;
+    }
+}

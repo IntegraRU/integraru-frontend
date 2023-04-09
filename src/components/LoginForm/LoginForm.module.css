@@ -1,68 +1,96 @@
-.form {
+/* Styles for tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+}
+
+/* Styles for desktops */
+@media (min-width: 1025px) {
+  .form {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
+  .form__textField {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
+    width: 24%;
+  }
+  
+  .form__submit {
+    align-self: center;
+    border-radius: 20%;
+    width: 200px;
+    height: 6rem;
+    background-color: var(--dark-blue);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .form__title {
-    color: var(--dark-blue);
-    font-weight: 500;
-    font-size: 1.9rem;
-    margin-top: 1rem;
+  color: var(--dark-blue);
+  font-weight: 500;
+  font-size: 1.9rem;
+  margin-top: 1rem;
 }
 
 .form__subtitle {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 
-.form__textField{
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
+.form__textField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
-.form__textField > label{
-    font-weight: 500;
-    font-size: 1.5rem;
+.form__textField > label {
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 
 .form__textField > input {
-    border: none;
-    border-radius: 8px;
-    padding: 1.2rem;
-    font-size: 1.4rem;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .form__error {
-    font-size: 1.2rem;
-    color: var(--red);
+  font-size: 1.2rem;
+  color: var(--red);
 }
 
 .form__checkField {
-    font-size: 1.3rem !important;
-    font-family: 'Poppins' !important;
+  font-size: 1.3rem !important;
+  font-family: "Poppins" !important;
 }
 
 .form__registerLink {
-    margin-top: -1.5rem;
-    font-size: 1.3rem;
+  margin-top: -1.5rem;
+  font-size: 1.3rem;
 }
 
 .form__registerLink > button {
-    color: var(--blue);
-    font-weight: 500;
+  color: var(--blue);
+  font-weight: 500;
 }
 
 .form__submit {
-    align-self: center;
-    border-radius: 50%;
-    width: 6rem;
-    height: 6rem;
-    background-color: var(--dark-blue);
-    margin: 2rem 0 3.5rem;
+  align-self: center;
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  background-color: var(--dark-blue);
+  margin: 2rem 0 3.5rem;
 }
 
 .form__submit > svg {
-    color: var(--white);
-    font-size: 2.2rem;
+  color: var(--white);
+  font-size: 2.2rem;
 }

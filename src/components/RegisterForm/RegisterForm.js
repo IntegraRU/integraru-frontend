@@ -52,40 +52,42 @@ export default function RegisterForm() {
                 É um prazer conhecer você! Preencha agora alguns dados para se cadastrar e conhecer
                 nosso sistema. É rapidinho!
             </p>
-            <div className={styles.form__textField}>
-                <label>Nome</label>
-                <input placeholder="Insira seu nome completo" autoComplete='on' {...register('name')} />
-                <p className={styles.form__error}>{errors.name?.message}</p>
+            <div className={styles.form__inputs}>
+                <div className={styles.form__textField}>
+                    <label>Nome</label>
+                    <input placeholder="Insira seu nome completo" autoComplete='on' {...register('name')} />
+                    <p className={styles.form__error}>{errors.name?.message}</p>
+                </div>
+                <div className={styles.form__textField}>
+                    <label>E-mail</label>
+                    <input placeholder="ex: usuario@exemplo.com" autoComplete='on' {...register('email')} />
+                    <p className={styles.form__error}>{errors.email?.message}</p>
+                </div>
+                <div className={styles.form__textField}>
+                    <label>Matrícula</label>
+                    <input placeholder="ex: 119210000" autoComplete='on' {...register('registration')} />
+                    <p className={styles.form__error}>{errors.registration?.message}</p>
+                </div>
+                <div className={styles.form__textField}>
+                    <label>Telefone</label>
+                    <input placeholder="ex: (83) 99999-9999" type="number" autoComplete='on' {...register('phone')} />
+                    <p className={styles.form__error}>{errors.phone?.message}</p>
+                </div>
+                <div className={styles.form__textField}>
+                    <label>Senha</label>
+                    <input placeholder="Insira pelo menos 8 caracteres" type="password" autoComplete='on' {...register('password')} />
+                    <p className={styles.form__error}>{errors.password?.message}</p>
+                </div>
+                <div className={styles.form__textField}>
+                    <label>Confirmar senha</label>
+                    <input placeholder="Repita a senha" type="password" autoComplete='on' {...register('password_confirmation')} />
+                    <p className={styles.form__error}>{errors.password_confirmation?.message}</p>
+                </div>
+                
+                <button type="submit" className={styles.form__submit}>
+                    <AiOutlineArrowRight />
+                </button>
             </div>
-            <div className={styles.form__textField}>
-                <label>E-mail</label>
-                <input placeholder="ex: usuario@exemplo.com" autoComplete='on' {...register('email')} />
-                <p className={styles.form__error}>{errors.email?.message}</p>
-            </div>
-            <div className={styles.form__textField}>
-                <label>Matrícula</label>
-                <input placeholder="ex: 119210000" autoComplete='on' {...register('registration')} />
-                <p className={styles.form__error}>{errors.registration?.message}</p>
-            </div>
-            <div className={styles.form__textField}>
-                <label>Telefone</label>
-                <input placeholder="ex: (83) 99999-9999" type="number" autoComplete='on' {...register('phone')} />
-                <p className={styles.form__error}>{errors.phone?.message}</p>
-            </div>
-            <div className={styles.form__textField}>
-                <label>Senha</label>
-                <input placeholder="Insira pelo menos 8 caracteres" type="password" autoComplete='on' {...register('password')} />
-                <p className={styles.form__error}>{errors.password?.message}</p>
-            </div>
-            <div className={styles.form__textField}>
-                <label>Confirmar senha</label>
-                <input placeholder="Repita a senha" type="password" autoComplete='on' {...register('password_confirmation')} />
-                <p className={styles.form__error}>{errors.password_confirmation?.message}</p>
-            </div>
-            
-            <button type="submit" className={styles.form__submit}>
-                <AiOutlineArrowRight />
-            </button>
         </form>
     );
 }

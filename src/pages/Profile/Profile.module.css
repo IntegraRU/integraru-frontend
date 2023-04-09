@@ -84,3 +84,17 @@
     color: var(--dark-blue) !important;
     background-color: var(--white) !important;
 }
+
+
+@media (min-width: 1025px) {
+    .profile__viewCard{
+        width: 18%;
+    }
+    .profile__photo{
+        width: 5vw;
+    }
+    .profile__inputs{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -74,3 +74,38 @@
     color: var(--white);
     background-color: var(--dark-blue);
 }
+
+.credit__form__fields {
+    margin-bottom: 8vh;
+    gap: 4vh;
+}
+
+@media (min-width: 1025px) {
+    .credit__title__image{
+        width: 4vw;
+    }
+
+    .credit__title{
+        font-weight: 600;
+        font-size: 1.6rem;
+        color: var(--dark-blue);
+        margin-bottom: 8vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4vh;
+    }
+
+    .credit__form__fields {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .credit__form{
+        width: 100rem;
+        margin: auto;
+    }
+
+}

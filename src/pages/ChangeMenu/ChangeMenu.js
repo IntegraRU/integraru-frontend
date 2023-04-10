@@ -128,36 +128,37 @@ export default function ChangeMenu() {
                         <option value='JANTAR'>Jantar</option>
                     </select>
                 </div>
-                <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>
-                    <p className={styles.menu__form__file__title}>Imagem</p>
-                    <label htmlFor="meal-photo">
-                        {currentImage && currentImage.length 
-                        ? <img src={window.URL.createObjectURL(currentImage[0])} alt={currentImage[0].name} />
-                        : <AiOutlineCloudUpload />
-                        }
-                    </label>
-                    <input type={'file'} accept="image/*" id="meal-photo" {...register('image')} />
-                    <p className={styles.menu__form__error}>{errors.file?.message}</p>
-                </div>
-                <div className={styles.menu__form__field}>
-                    <label>Nome</label>
-                    <input defaultValue={previousMenu && previousMenu.nome} placeholder="ex: Feijoada com Arroz" {...register('title')} />
-                    <p className={styles.menu__form__error}>{errors.title?.message}</p>
-                </div>
-                <div className={styles.menu__form__field}>
-                    <label>Ingredientes <span>(Separados por vírgula)</span></label>
-                    <textarea defaultValue={previousMenu && previousMenu.itens} placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
-                    <p className={styles.menu__form__error}>{errors.ingredients?.message}</p>
-                </div>
-                <div className={styles.menu__form__field}>
-                    <label>Tipo</label>
-                    <select defaultValue={previousMenu && previousMenu.tipo} className={styles.menu__form__field__select} {...register('type')}>
-                        <option value="COMUM">Comum</option>
-                        <option value="VEGETARIANO">Vegetariano</option>
-                        <option value="VEGANO">Vegano</option>
-                    </select>
-                </div>
-
+                    <div className={`${styles.menu__form__field} ${styles.menu__form__file}`}>
+                        <p className={styles.menu__form__file__title}>Imagem</p>
+                        <label htmlFor="meal-photo"  >
+                            {currentImage && currentImage.length 
+                            ? <img src={window.URL.createObjectURL(currentImage[0])} alt={currentImage[0].name} />
+                            : <AiOutlineCloudUpload />
+                            }
+                        </label>
+                        <input type={'file'} accept="image/*" id="meal-photo" {...register('image')} />
+                        <p className={styles.menu__form__error}>{errors.file?.message}</p>
+                    </div>
+                    <div className={styles.inputs}>
+                        <div className={styles.menu__form__field}>
+                            <label>Nome</label>
+                            <input defaultValue={previousMenu && previousMenu.nome} placeholder="ex: Feijoada com Arroz" {...register('title')} />
+                            <p className={styles.menu__form__error}>{errors.title?.message}</p>
+                        </div>
+                        <div className={styles.menu__form__field}>
+                            <label>Ingredientes <span>(Separados por vírgula)</span></label>
+                            <textarea defaultValue={previousMenu && previousMenu.itens} placeholder="ex: Feijão Preto, Arroz Branco, Farofa" {...register('ingredients')} />
+                            <p className={styles.menu__form__error}>{errors.ingredients?.message}</p>
+                        </div>
+                        <div className={styles.menu__form__field}>
+                            <label>Tipo</label>
+                            <select defaultValue={previousMenu && previousMenu.tipo} className={styles.menu__form__field__select} {...register('type')}>
+                                <option value="COMUM">Comum</option>
+                                <option value="VEGETARIANO">Vegetariano</option>
+                                <option value="VEGANO">Vegano</option>
+                            </select>
+                        </div>
+                    </div>
                 <div className={styles.menu__form__buttons}>
                     <button className={styles.menu__form__clearButton} type={'button'} onClick={()=>reset()}><AiOutlineClose /></button>
                     <button className={styles.menu__form__submitButton} type={'submit'}><AiOutlineCheck /></button>

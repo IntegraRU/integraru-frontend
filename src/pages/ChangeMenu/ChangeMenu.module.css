@@ -139,3 +139,32 @@
     justify-content: center;
     align-items: center;
 }
+
+.inputs{
+    gap: 1.5vh;
+}
+
+@media (min-width: 1025px) {
+    .menu__form__file > label{
+        width: 10rem;
+        height: 10rem;    
+    }
+    
+    .menu__form__file > label > img{
+        width: 10rem;
+        height: 10rem;    
+    }
+
+    .menu__form__inputs{
+        gap: 1.5vh;
+        
+    }
+
+    .inputs{
+        gap: 1.5vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+}

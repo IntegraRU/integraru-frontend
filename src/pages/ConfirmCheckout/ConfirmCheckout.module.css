@@ -95,3 +95,13 @@
     color: var(--white);
     font-size: 3rem;
 }
+
+@media (min-width: 1025px) {
+    .confirm{
+        margin: 14vh 30vw 5vh;
+    }
+    .confirm__pageButtons{
+        gap: 15vw;
+    }
+    
+  }

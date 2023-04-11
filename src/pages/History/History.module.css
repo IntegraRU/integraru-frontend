@@ -83,3 +83,9 @@ h1 {
     color: var(--white);
     font-size: 3rem;
 }
+
+@media (min-width: 1025px) {
+  .buttons_container {
+    justify-content: space-evenly;
+  }
+}

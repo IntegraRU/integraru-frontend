@@ -102,3 +102,16 @@
     color: var(--white);
     font-size: 3rem;
 }
+
+@media (min-width: 1025px) {
+    .history{
+        margin: 14vh 30vw 5vh;
+    }
+
+    .history__page_buttons{
+        gap: 15vw;
+    }
+    
+  }
+  
+

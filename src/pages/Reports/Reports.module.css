@@ -114,3 +114,16 @@
 .report__empty{
     text-align: center;
 }
+
+@media (min-width: 1025px) {
+    .report{
+        margin: 14vh 30vw 5vh;
+    }
+    
+    .report__header > img{
+        width: 20rem;
+        height: 20rem;
+    }
+  }
+  
+

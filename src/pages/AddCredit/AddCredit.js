@@ -42,22 +42,24 @@ export default function AddCredit() {
               <h1>Adicionar crédito</h1>
             </div>
             <form className={styles.credit__form} onSubmit={handleSubmit(submitForm)}>
-                <div className={styles.credit__form__field}>
-                    <label>Matrícula</label>
-                    <input placeholder="Insira a matrícula" {...register('registration')} />
-                    <p className={styles.credit__form__error}>{errors.registration?.message}</p>
-                </div>
+                <div className={styles.credit__form__fields}>
+                    <div className={styles.credit__form__field}>
+                        <label>Matrícula</label>
+                        <input placeholder="Insira a matrícula" {...register('registration')} />
+                        <p className={styles.credit__form__error}>{errors.registration?.message}</p>
+                    </div>
 
-                <div className={styles.credit__form__field}>
-                    <label>Valor (R$)</label>
-                    <input type={'number'} placeholder="Ex: 2,00" {...register('value')} />
-                    <p className={styles.credit__form__error}>{errors.value?.message}</p>
-                </div>
+                    <div className={styles.credit__form__field}>
+                        <label>Valor (R$)</label>
+                        <input type={'number'} placeholder="Ex: 2,00" {...register('value')} />
+                        <p className={styles.credit__form__error}>{errors.value?.message}</p>
+                    </div>
+                    </div>
 
-                <div className={styles.credit__form__buttons}>
-                    <button className={styles.credit__form__clearButton} type={'button'} onClick={()=>reset()}><AiOutlineClose /></button>
-                    <button className={styles.credit__form__submitButton} type={'submit'}><AiOutlineCheck /></button>
-                </div>
+                    <div className={styles.credit__form__buttons}>
+                        <button className={styles.credit__form__clearButton} type={'button'} onClick={()=>reset()}><AiOutlineClose /></button>
+                        <button className={styles.credit__form__submitButton} type={'submit'}><AiOutlineCheck /></button>
+                    </div>
             </form>
         </div>
     );

@@ -11,7 +11,7 @@ export default function Header({ hideReturn }) {
   const { getUserRoutes, performLogout, currentUser } = useUser();
 
   return (
-    <>
+    <div className={styles.header}>
       {!hideReturn && <button className={styles.return} onClick={() => { navigate((currentUser.admin ? '/admin': "") + '/inicio') }}>
         Voltar
       </button>}
@@ -32,7 +32,7 @@ export default function Header({ hideReturn }) {
           <Link key={route.name} to={`/${route.route}`}><route.icon size="2rem" /> {route.name}</Link>)}
         <button className={styles.logout} onClick={performLogout}><ImExit /> Sair</button>
       </Menu>
-    </>
+    </div>
   );
 }
 

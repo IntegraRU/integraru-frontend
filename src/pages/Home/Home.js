@@ -21,7 +21,7 @@ export default function Home() {
           </span>
         }
       </header>
-      <main>
+      <main className={styles.main}>
         <h2>Escolha qualquer uma das opções abaixo</h2>
         <div className={styles.home__navigationContainer}>
           {getUserRoutes().filter(route => !route.route.includes("inicio")).map(route => (

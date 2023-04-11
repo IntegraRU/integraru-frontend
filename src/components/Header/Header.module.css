@@ -1,3 +1,7 @@
+.header {
+  width: 50vw;
+}
+
 .return {
   position: absolute;
   top: 5vh;
@@ -80,3 +84,4 @@
   align-self: flex-start;
   color: var(--mid-blue);
 }
+

@@ -18,6 +18,12 @@
     gap: 3vh;
 }
 
+@media (min-width: 1025px) {
+    .home__container {
+        padding: 40px;
+    }
+}
+
 @media (min-width: 840px) {
     .home__container header {
         justify-content: center;
@@ -69,4 +75,29 @@
     display: grid;
     gap: 36px;
     grid-template-columns: 1fr 1fr;
+}
+
+.main {display: flex;}
+
+@media (min-width: 1025px) {
+    .main {
+        padding: 6rem;
+        justify-content: flex-start;
+    }
+
+    .home__container {
+        display: inline;
+        flex-direction: column;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        color: var(--dark-blue);
+        background-color: var(--grey);
+        justify-content: flex-start;
+    }
+
+    .home__container .home__navigationContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

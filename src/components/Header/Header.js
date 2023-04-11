@@ -16,6 +16,7 @@ export default function Header({ hideReturn }) {
         Voltar
       </button>}
       <Menu
+        right
         isOpen={openMenu}
         burgerButtonClassName={styles.burger__button}
         burgerBarClassName={styles.burger__bars}
